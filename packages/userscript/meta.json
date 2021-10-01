@@ -1,0 +1,19 @@
+{
+	"name": "SPXX",
+  "version": "2.1.0",
+	"author": "SPGoding & SPX Fellow",
+	"connect": ["minecraft.net", "spgoding.com"],
+	"description": "Minecraft.net blog article to BBCode converter, rewritten",
+	"downloadURL": "https://example.com/",
+	"homepage": "https://github.com/SPXFellow/spxx",
+	"namespace": "https://github.com/SPXFellow/spxx",
+	"include": [
+		"https://www.minecraft.net/en-us/article/*",
+		"https://www.minecraft.net/zh-hans/article/*",
+		"https://twitter.com/*/status/*",
+		"https://mobile.twitter.com/*/status/*",
+    "https://feedback.minecraft.net/hc/en-us/articles/*",
+    "https://help.minecraft.net/hc/en-us/articles/*"
+	],
+	"grant": ["GM_setClipboard", "GM_xmlhttpRequest"]
+}

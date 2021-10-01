@@ -1,5 +1,5 @@
 module.exports = {
-	ignorePatterns: ['.eslintrc.js', 'out/**/*.js'],
+	ignorePatterns: ['.eslintrc.js', 'out/**/*.js', '.yarn/**/*.js'],
 	env: {
 		browser: true,
 		es6: true,
