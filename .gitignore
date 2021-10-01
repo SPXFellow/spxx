@@ -2,6 +2,7 @@
 node_modules
 dist
 out
+config.json
 
 # local env files
 .env.local
