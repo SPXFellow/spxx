@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"target": "esnext",
+		"outDir": "./out",
+		"rootDir": "./src",
+		"lib": ["es6", "DOM", "DOM.Iterable"],
+		"sourceMap": true,
+		"strict": true,
+		"incremental": true
+	},
+	"include": ["src"],
+	"exclude": ["node_modules", "src/test"]
+}
