@@ -1,4 +1,6 @@
 import { minecraftNet } from './sites/minecraft-net'
+import { feedback } from './sites/feedback'
+import { help } from './sites/help'
 
 switch (location.host) {
   case 'www.minecraft.net':
@@ -8,9 +10,10 @@ switch (location.host) {
   case 'moble.twitter.com':
     twitter()
   break
+  */
   case 'feedback.minecraft.net':
     feedback()
   break
   case 'help.minecraft.net':
-    help() */
+    help()
 }

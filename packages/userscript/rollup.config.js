@@ -1,9 +1,11 @@
-// rollup.config.js
 import { defineConfig } from 'rollup'
 import typescriptPlugin from '@rollup/plugin-typescript'
 import babelPluggin from '@rollup/plugin-babel'
 import metablock from 'rollup-plugin-userscript-metablock'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import jsonPlugin from '@rollup/plugin-json'
+import * as pkg from './package.json'
+
 
 export default defineConfig({
   input: 'src/main.ts',
@@ -20,7 +22,11 @@ export default defineConfig({
     }),
     metablock({
       file: './meta.json',
+      override: {
+        version: pkg.version
+      }
     }),
-    nodeResolve({  }),
+    nodeResolve(),
+    jsonPlugin(),
   ],
 })
