@@ -74,10 +74,12 @@ export async function getTweet(twitterClient: Twitter, mode: 'dark' | 'light', t
           userName: author.name,
           userTag: author.username,
       })
+      console.log(bbcode)
       return bbcode
   } catch (e) {
     // https://stackoverflow.com/a/69028217
     if (e instanceof Error) {
+      console.error(`❌ 与 Twitter API 交互出错：\n\`\`\`\n${e?.toString().slice(0, 127)}\n\`\`\``)
       throw new Error(`❌ 与 Twitter API 交互出错：\n\`\`\`\n${e?.toString().slice(0, 127)}\n\`\`\``)
     }
   }
@@ -118,7 +120,7 @@ function getTweetBbcode({
       content = content.slice(0, skippedIndex + url.start - 1) + urlBBCode + content.slice(skippedIndex + url.end)
       skippedIndex += urlBBCode.length - (url.end - url.start)
   }
-  return `[align=center][table=560,${backgroundColor}]
+  const res = `[align=center][table=560,${backgroundColor}]
 [tr][td][font=-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif][indent]
 [float=left][img=44,44]${ProfilePictures.get(userTag) ?? '【TODO：头像】'}[/img][/float][size=15px][b][color=${foregroundColor}]${userName}[/color][/b]
 [color=${attributeColor}]@${userTag}[/color][/size]
@@ -128,4 +130,6 @@ function getTweetBbcode({
 [size=23px]【插入：译文】[/size][/color][/indent][align=center][img=451,254]【TODO：配图】[/img][/align][indent][size=15px][url=${tweetLink}][color=${attributeColor}]${dateString}[/color][/url][/size][/indent][/font]
 [/td][/tr]
 [/table][/align]`
+  console.log(res)
+  return res
 }
