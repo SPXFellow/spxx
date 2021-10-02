@@ -524,8 +524,7 @@ function translateBugs(str: string, ctx: Context) {
     const id = str.slice(36, str.indexOf(']'))
     const data = ctx.bugs[id]
     if (data) {
-      const { summary, color } = data
-      return `[url=https://bugs.mojang.com/browse/${id}][color=${color}][b]${id}[/b][/color][/url]- ${summary}`
+      return `[url=https://bugs.mojang.com/browse/${id}][b]${id}[/b][/url]- ${data}`
     } else {
       return str
     }

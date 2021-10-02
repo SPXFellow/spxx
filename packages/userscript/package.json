@@ -8,7 +8,7 @@
   "license": "CC0-1.0",
   "private": false,
   "scripts": {
-    "build": "tsc -b && rollup -c && rollup -c",
+    "build": "tsc -b && rollup -c",
     "prepublish": "tsc -b && rollup -c"
   },
   "devDependencies": {

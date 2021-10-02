@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "outDir": "./out",
-    "rootDir": "./src"
+    "outDir": "./dist"
   },
-  "exclude": ["rollup.config.js"]
+  "exclude": ["*.config.*", "out/*", "dist/*"]
 }

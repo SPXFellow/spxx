@@ -9,10 +9,7 @@ export interface Context {
 }
 
 export interface ResolvedBugs {
-  [id: string]: {
-    summary: string
-    color: string
-  }
+  [id: string]: string
 }
 
-export const BugsCenter = 'https://spx.spgoding.com/bugs'
+export const BugsCenter = 'https://raw.githubusercontent.com/SPXFellow/spxx-translation-database/crowdin/zh-CN/zh_CN.json'
