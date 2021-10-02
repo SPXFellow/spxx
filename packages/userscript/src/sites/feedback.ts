@@ -44,7 +44,7 @@ async function convertFeedbackArticleToBBCode(
 
   const content = await getFeedbackContent(html, ctx)
 
-  const ans = `${getBeginning(
+  const ans = `[postbg]bg3.png[/postbg]${getBeginning(
     'news',
     versionType
   )}[size=6][b][color=Silver]${title}[/color][/b][/size]

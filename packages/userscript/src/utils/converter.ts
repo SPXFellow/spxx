@@ -146,8 +146,8 @@ export const converters = {
   },
   code: async (ele: HTMLElement, ctx: Context) => {
     const prefix =
-      "[backcolor=White][font=Monaco,Consolas,'Lucida Console','Courier New',serif]"
-    const suffix = '[/font][/backcolor]'
+      '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
+    const suffix = '[/font][/color][/backcolor]'
 
     const ans = `${prefix}${await converters.recurse(ele, {
       ...ctx,
@@ -438,7 +438,7 @@ export const converters = {
     if (ele.classList.contains('bedrock-server')) {
       // Inline code.
       const prefix =
-        '[backcolor=White][font=Monaco,Consolas,serif][color=#7824c5]'
+        '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
       const suffix = '[/color][/font][/backcolor]'
       return `${prefix}${await converters.recurse(ele, {
         ...ctx,

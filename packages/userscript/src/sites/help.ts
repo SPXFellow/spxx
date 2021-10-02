@@ -35,7 +35,7 @@ async function convertHelpArticleToBBCode(
   }
   const content = await getHelpContent(html, ctx)
 
-  const ans = `[size=6][b][color=Silver]${title}[/color][/b][/size]
+  const ans = `[postbg]bg3.png[/postbg][size=6][b][color=Silver]${title}[/color][/b][/size]
 ${translateMachinely(
   `[size=6][b]${title}[/b][/size]`,
   ctx

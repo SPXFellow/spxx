@@ -9,7 +9,8 @@
   "private": false,
   "scripts": {
     "build": "tsc -b && rollup -c",
-    "prepublish": "tsc -b && rollup -c"
+    "prepublish": "tsc -b && rollup -c",
+    "watch": "rollup -w"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
