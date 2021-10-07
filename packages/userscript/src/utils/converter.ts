@@ -254,7 +254,7 @@ export const converters = {
     const ans = `\n\n${await converters.recurse(
       ele,
       ctx
-    )}\n【本文排版借助了：[url=https://spx.spgoding.com][color=#388d40][u]SPX[/u][/color][/url]】\n\n`
+    )}\n【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url]】\n\n`
     return ans
   },
   dd: async (ele: HTMLElement, ctx: Context) => {
@@ -524,7 +524,7 @@ function translateBugs(str: string, ctx: Context) {
     const id = str.slice(36, str.indexOf(']'))
     const data = ctx.bugs[id]
     if (data) {
-      return `[url=https://bugs.mojang.com/browse/${id}][b]${id}[/b][/url]- ${data}`
+      return `[url=https://bugs.mojang.com/browse/${id}][b][color=#388d40]${id}[/color][/b][/url]- ${data}`
     } else {
       return str
     }

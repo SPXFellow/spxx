@@ -60,7 +60,7 @@ ${translateMachinely(
   }][color=#388d40][u]feedback.minecraft.net 哪 年 哪 月 哪 日发布的 ${
     ctx.title
   }[/u][/color][/url]】[/b]
-【本文排版借助了：[url=https://spx.spgoding.com][color=#388d40][u]SPX[/u][/color][/url]】\n\n${getEnding(
+【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url]】\n\n${getEnding(
     'news',
     versionType
   )}`
