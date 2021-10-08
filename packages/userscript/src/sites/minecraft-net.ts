@@ -169,10 +169,10 @@ async function getContent(html: Document, ctx: Context) {
   ans = ans.replace(/(\[\/[^\]]+?\])([a-zA-Z0-9\-._])/g, '$1 $2')
   // Append the server URL if it exists.
   if (serverUrl) {
-    ans += `\n[align=center][table=70%,#EDFBFF]
-[tr][td=2,1][align=center][size=3][color=#D6D604][b]官方服务端下载地址[/b][/color][/size][/align][/td][/tr]
-[tr][td][align=center][url=${serverUrl}]Minecraft server.jar[/url][/align][/td][/tr]
-[/table][/align]`
+    ans += `\n[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/39/common_137_icon.png[/img][/float][size=24px][b][color=#645944] 实用链接[/color][/b][/size][/td][/tr]
+[tr=#FDF6E5][td][size=16px][list]
+[*][url=${serverUrl}][color=Sienna]官方服务端 jar 下载地址[/color][/url]`
   }
 
   return ans
