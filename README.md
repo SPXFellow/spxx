@@ -13,9 +13,7 @@ The new and rewritten version of [spx](https://github.com/SPGoding/spx), the ult
 Adds a "Copy BBCode" button to Minecraft.net, feedback.minecraft.net and help.minecraft.net articles and Tweets,
 which sets the [BBCode][bbcode] representation of this blog article to your clipboard.
 
-~~You can use browser extensions like [Tampermonkey][tampermonkey] to install this script from URL: `https://spx.spgoding.com/user-script`~~
-
-Due to it is being rewritten, it is not available yet, but will be soon enough.
+You can use browser extensions like [Tampermonkey][tampermonkey] to install this script from URL: `https://cdn.jsdelivr.net/npm/@spxx/userscript/dist/bundle.user.js`
 
 ### SPXX Web Dashboard™
 
