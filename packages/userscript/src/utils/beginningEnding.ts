@@ -108,10 +108,10 @@ export function getEnding(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
 
@@ -129,10 +129,10 @@ export function getEnding(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
 
@@ -150,10 +150,10 @@ export function getEnding(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
 
@@ -171,10 +171,10 @@ export function getEnding(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
 
@@ -195,10 +195,10 @@ export function getEnding(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
 
@@ -220,10 +220,10 @@ export function getEnding(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
 
@@ -231,10 +231,10 @@ export function getEnding(articleType: string, type: VersionType) {
     default:
       return `\n[hr]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多新闻资讯？[/color][/b][/size][/td][/tr]
+[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/e0/common_139_icon.png[/img][/float][size=24px][b][color=#645944] 想了解更多资讯？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
-[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 新闻资讯板块[/color][/url]
+[*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
 [/table][/font][/align]`
   }
