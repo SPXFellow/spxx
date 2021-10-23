@@ -1,5 +1,5 @@
 {
-  "name": "@spxx/dashboard-server",
+  "name": "@spxx/tweeter",
   "version": "0.1.0",
   "main": "out/index.js",
   "author": "SPXFellow",

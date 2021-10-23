@@ -54,14 +54,6 @@ let twitter: TwitterConfig | undefined
 })()
 
 const app = express()
-  /* 	.get('/bugs', (_req, res) => {
-		res.setHeader('Content-Type', 'application/json')
-		res.send(JSON.stringify(BugCache.getResolvedBugCache()))
-	})
-	.get('/colors', (_req, res) => {
-		res.setHeader('Content-Type', 'application/json')
-		res.send(JSON.stringify(ColorCache.colors))
-	}) */
   .get('/user-script', (_req, res) => {
     res.redirect(
       302,
