@@ -523,6 +523,11 @@ export async function getBugs(): Promise<ResolvedBugs> {
   })
 }
 
+function markdownToBbcode(value: string): string {
+	return value
+		.replace(/`([^`]+)`/g, '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]$1[/color][/font][/backcolor]')
+}
+
 /**
  * Replace untranslated bugs.
  */
@@ -531,7 +536,8 @@ function translateBugs(str: string, ctx: Context): string {
     const id = str.slice(36, str.indexOf(']'))
     const data = ctx.bugs[id]
     if (data) {
-      return `[url=https://bugs.mojang.com/browse/${id}][b][color=#388d40]${id}[/color][/b][/url]- ${data}`
+      const bbcode = markdownToBbcode(data)
+      return `[url=https://bugs.mojang.com/browse/${id}][b][color=#388d40]${id}[/color][/b][/url]- ${bbcode}`
     } else {
       return str
     }
