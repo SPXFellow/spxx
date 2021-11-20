@@ -6,9 +6,10 @@ export const converters = {
    * Converts a ChildNode to a BBCode string according to the type of the node.
    */
   convert: async (node: ChildNode, ctx: Context): Promise<string> => {
-    if ((node as HTMLElement).classList?.contains('spx-converter-ignored')) {
+    if ((node as HTMLElement).classList?.contains('spxx-userscript-ignored')) {
       return ''
     }
+    // Listing all possible elements in the document
     switch (node.nodeName) {
       case 'A':
         return converters.a(node as HTMLAnchorElement, ctx)
@@ -497,6 +498,9 @@ export function resolveUrl(url: string) {
   }
 }
 
+/**
+ * Get bugs from BugCenter.
+ */
 export async function getBugs(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
     GM_xmlhttpRequest({
@@ -519,7 +523,10 @@ export async function getBugs(): Promise<ResolvedBugs> {
   })
 }
 
-function translateBugs(str: string, ctx: Context) {
+/**
+ * Replace untranslated bugs.
+ */
+function translateBugs(str: string, ctx: Context): string {
   if (str.startsWith('[url=https://bugs.mojang.com/browse/MC-')) {
     const id = str.slice(36, str.indexOf(']'))
     const data = ctx.bugs[id]
@@ -533,6 +540,9 @@ function translateBugs(str: string, ctx: Context) {
   }
 }
 
+/**
+ * Determine if we should use album, depending on image count.
+ */
 function shouldUseAlbum(slides: [string, string][]) {
   const enableAlbum = true
   return enableAlbum

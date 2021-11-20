@@ -1,3 +1,8 @@
+/**
+ * Just a simple file to get the beginning and ending of an article.
+ * This needs continuous updates according to https://www.mcbbs.net/thread-1253320-1-1.html#pid23311399.
+ */
+
 export function getBeginning(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
     return ''

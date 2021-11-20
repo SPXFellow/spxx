@@ -1,4 +1,3 @@
-import '@types/tampermonkey'
 import { Context, ResolvedBugs } from '../types'
 import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
 import { getBugs, resolveUrl, converters } from '../utils/converter'
@@ -13,11 +12,11 @@ export async function minecraftNet() {
 
     const button = document.createElement('button')
     button.classList.add(
+      'minecraft-main-button',
+      'button-green',
       'btn',
-      'btn-primary',
-      'btn-sm',
-      'btn-primary--grow',
-      'spx-converter-ignored'
+      'btn-xs',
+      'spxx-userscript-ignored'
     )
     button.innerText = 'Copy BBCode'
     button.onclick = async () => {

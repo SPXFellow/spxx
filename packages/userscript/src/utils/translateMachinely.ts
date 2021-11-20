@@ -1,16 +1,18 @@
 import { Context } from '../types'
 
 /**
- * Replace all half-shape characters to full-shape characters.
+ * Replace all half-shape characters to full-shape characters and do some other replacements.
  */
 export default function translateMachinely(input: string, ctx: Context) {
   const mappings: [RegExp, string][] = [
+    // Minecraft.net titles
     [/Block of the Week: /gi, '本周方块：'],
     [/Taking Inventory: /gi, '背包盘点：'],
     [/Around the Block: /gi, '群系漫游：'],
     [/A Minecraft Java Snapshot/gi, 'Minecraft Java版 快照'],
     [/A Minecraft Java Pre-Release/gi, 'Minecraft Java版 预发布版'],
     [/A Minecraft Java Release Candidate/gi, 'Minecraft Java版 候选版本'],
+    // Bedrock Edition titles
     [
       /Minecraft Beta (?:-|——) (.*?) \((.*?)\)/gi,
       'Minecarft 基岩版 Beta $1（$2）',
@@ -21,7 +23,8 @@ export default function translateMachinely(input: string, ctx: Context) {
       'Minecraft 基岩版 $1（仅$2）',
     ],
     [/Minecraft (?:-|——) (.*?) \((.*?)\)/gi, 'Minecraft 基岩版 $1（仅$2）'],
-    [/Caves & Cliffs Experimental Features/gi, '洞穴与山崖实验性特性'],
+    // BE subheadings
+    [/Caves & Cliffs Experimental Features/gi, '洞穴与山崖实验性特性'], // to be deprecated
     [/Marketplace/gi, '市场'],
     [/Data-Driven/gi, '数据驱动'],
     [/Graphical/gi, '图像'],
@@ -39,9 +42,7 @@ export default function translateMachinely(input: string, ctx: Context) {
     [/Technical Updates/gi, '技术性更新'],
     [/Vanilla Parity/gi, '待同步特性'],
     [/Character Creator/gi, '角色创建器'],
-    [/Minecraft Snapshot /gi, 'Minecraft 快照 '],
-    [/Pre-Release /gi, '预发布版 '],
-    [/Release Candidate /gi, '候选版本 '],
+    // Creative Commons image credits
     [/Image credit:/gi, '图片来源：'],
     [/CC BY:/gi, '知识共享 署名'],
     [/CC BY-NC:/gi, '知识共享 署名-非商业性使用'],
@@ -50,7 +51,11 @@ export default function translateMachinely(input: string, ctx: Context) {
     [/CC BY-NC-ND:/gi, '知识共享 署名-非商业性使用-禁止演绎'],
     [/CC BY-NC-SA:/gi, '知识共享 署名-非商业性使用-相同方式共享'],
     [/Public Domain:/gi, '公有领域'],
-    [/The Caves & Cliffs Preview/gi, '洞穴与山崖预览数据包'], // to be deprecated
+    [/The Caves & Cliffs Preview/gi, '洞穴与山崖预览数据包'],
+    // JE subheadings
+    [/Minecraft Snapshot /gi, 'Minecraft 快照 '],
+    [/Pre-Release /gi, '预发布版 '],
+    [/Release Candidate /gi, '候选版本 '],
     [
       /\[size=6\]\[b\]New Features in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
       '[size=6][b]$1 的新增特性[/b][/size]',
@@ -67,6 +72,7 @@ export default function translateMachinely(input: string, ctx: Context) {
       /\[size=6\]\[b\]Fixed bugs in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
       '[size=6][b]$1 修复的漏洞[/b][/size]',
     ],
+    // Replace punctuation
     [/\[i\]/gi, '[font=楷体]'],
     [/\[\/i\]/g, '[/font]'],
     ...(ctx.disablePunctuationConverter
@@ -81,10 +87,12 @@ export default function translateMachinely(input: string, ctx: Context) {
         ] as [RegExp, string][])),
   ]
 
+  // REPLACE!!!!1
   for (const mapping of mappings) {
     input = input.replace(mapping[0], mapping[1])
   }
 
+  // Special treatment for quotes
   const quoteArrays: [string, string, RegExp][] = [
     ['“', '”', /"/],
     // ['『', '』', "'"]
