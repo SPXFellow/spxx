@@ -47,11 +47,11 @@ async function convertFeedbackArticleToBBCode(
   const ans = `[postbg]bg3.png[/postbg]${getBeginning(
     'news',
     versionType
-  )}[size=6][b][color=Silver]${title}[/color][/b][/size]
+  )}[indent][indent][align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
 ${translateMachinely(
   `[size=6][b]${title}[/b][/size]`,
   ctx
-)}\n\n${content.replace(
+)}[/align][/indent][/indent]\n${content.replace(
     /\[size=2\]\[color=Silver\]\[b\]PLEASE READ before participating in the Minecraft Beta: \[\/b\]\[\/color\]\[\/size\].*?\[\/list\]/ims,
     ''
   )}[/indent][/indent]\n

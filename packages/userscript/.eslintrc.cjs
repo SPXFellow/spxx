@@ -1,3 +1,3 @@
 module.exports = {
-	ignorePatterns: ['rollup.config.js', '.eslintrc.cjs', 'out/**/*.js'],
+	ignorePatterns: ['rollup.config.js', '.eslintrc.cjs', 'dist/**/*.js'],
 }
