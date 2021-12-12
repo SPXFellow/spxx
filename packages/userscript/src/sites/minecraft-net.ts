@@ -87,7 +87,7 @@ function getVersionType(url: string): VersionType {
     return VersionType.ReleaseCandidate
   } else if (url.toLowerCase().includes('snapshot')) {
     return VersionType.Snapshot
-  } else if (url.toLowerCase().includes('minecraft java edition')) {
+  } else if (url.toLowerCase().includes('minecraft-java-edition')) {
     return VersionType.Release
   } else {
     return VersionType.Normal
