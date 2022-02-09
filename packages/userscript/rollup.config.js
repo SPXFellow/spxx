@@ -8,14 +8,16 @@ import * as pkg from './package.json'
 
 
 export default defineConfig({
-  input: 'src/main.ts',
+  input: './src/main.ts',
   output: {
     file: 'dist/bundle.user.js',
     format: 'iife',
     sourcemap: true,
   },
   plugins: [
-    typescriptPlugin(),
+    typescriptPlugin({
+      outputToFilesystem: true,
+    }),
     babelPluggin({
       babelHelpers: 'bundled',
       extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx'],

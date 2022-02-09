@@ -1,5 +1,5 @@
 import { Context, ResolvedBugs, BugsCenter } from '../types'
-import translateMachinely from './translateMachinely'
+import translate from './autoTranslation'
 
 export const converters = {
   /**
@@ -296,9 +296,10 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translateMachinely(
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
       `${prefix}${inner}${suffix}`,
-      ctx
+      ctx,
+      ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
@@ -309,9 +310,10 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translateMachinely(
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
       `${prefix}${inner}${suffix}`,
-      ctx
+      ctx,
+      ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
@@ -322,9 +324,10 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translateMachinely(
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
       `${prefix}${inner}${suffix}`,
-      ctx
+      ctx,
+      ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
@@ -335,9 +338,10 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translateMachinely(
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
       `${prefix}${inner}${suffix}`,
-      ctx
+      ctx,
+      ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
@@ -390,12 +394,12 @@ export const converters = {
         ele.childNodes[0].nodeName === 'UL')
     ) {
       // Nested lists.
-      ans = `[*]${translateMachinely(translateBugs(inner, ctx), ctx)}\n`
+      ans = `[*]${translate(translateBugs(inner, ctx), ctx, 'code')}\n`
     } else {
       ans = `[*][color=Silver]${inner.replace(
         /#388d40/g,
         'Silver'
-      )}[/color]\n[*]${translateMachinely(translateBugs(inner, ctx), ctx)}\n`
+      )}[/color]\n[*]${translate(translateBugs(inner, ctx), ctx, 'code')}\n`
     }
 
     return ans
@@ -412,9 +416,9 @@ export const converters = {
     let ans
 
     if (ele.classList.contains('lead')) {
-      ans = `[size=4][b][size=2][color=Silver]${inner}[/color][/size][/b][/size]\n[size=4][b]${translateMachinely(
+      ans = `[size=4][b][size=2][color=Silver]${inner}[/color][/size][/b][/size]\n[size=4][b]${translate(
         inner,
-        ctx
+        ctx, 'headings'
       )}[/b][/size]\n\n`
     } else {
       if (ctx.inList) {
@@ -423,7 +427,7 @@ export const converters = {
         ans = `[size=2][color=Silver]${inner.replace(
           /#388d40/g,
           'Silver'
-        )}[/color][/size]\n${translateMachinely(inner, ctx)}\n\n`
+        )}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
       }
     }
 

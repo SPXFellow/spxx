@@ -12,4 +12,8 @@ export interface ResolvedBugs {
   [id: string]: string
 }
 
+export type TranslationMappings = [RegExp, string][]
+
+export type AutoTranslationTypes = 'code' | 'headings' | 'punctuation' | 'imgCredits'
+
 export const BugsCenter = 'https://raw.githubusercontent.com/SPXFellow/spxx-translation-database/crowdin/zh-CN/zh_CN.json'

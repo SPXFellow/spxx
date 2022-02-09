@@ -1,6 +1,6 @@
 import { converters } from '../utils/converter'
 import { Context } from '../types'
-import translateMachinely from '../utils/translateMachinely'
+import translateMachinely from '../utils/autoTranslation'
 
 export function help() {
   const button = document.createElement('a')
@@ -35,11 +35,11 @@ async function convertHelpArticleToBBCode(
   }
   const content = await getHelpContent(html, ctx)
 
-  const ans = `[postbg]bg3.png[/postbg][size=6][b][color=Silver]${title}[/color][/b][/size]
+  const ans = `[postbg]bg3.png[/postbg][align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
 ${translateMachinely(
   `[size=6][b]${title}[/b][/size]`,
-  ctx
-)}\n\n${content}[/indent][/indent]\n
+  ctx, 'headings'
+)}[/align]\n\n${content}[/indent][/indent]\n
 [b]【${ctx.translator} 译自[url=${
     ctx.url
   }][color=#388d40][u]help.minecraft.net 哪 年 哪 月 哪 日发布的 ${

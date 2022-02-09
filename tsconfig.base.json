@@ -6,11 +6,11 @@
 		"target": "esnext",
 		"outDir": "./out",
 		"rootDir": "./src",
-		"lib": ["es6", "DOM", "DOM.Iterable"],
+		"lib": ["esnext", "DOM", "DOM.Iterable"],
 		"sourceMap": true,
 		"strict": true,
 		"incremental": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "src/test"]

@@ -1,7 +1,7 @@
 import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
 import { converters } from '../utils/converter'
 import { Context } from '../types'
-import translateMachinely from '../utils/translateMachinely'
+import translateMachinely from '../utils/autoTranslation'
 
 export function feedback() {
   const button = document.createElement('a')
@@ -50,7 +50,7 @@ async function convertFeedbackArticleToBBCode(
   )}[indent][indent][align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
 ${translateMachinely(
   `[size=6][b]${title}[/b][/size]`,
-  ctx
+  ctx, 'headings'
 )}[/align][/indent][/indent]\n${content.replace(
     /\[size=2\]\[color=Silver\]\[b\]PLEASE READ before participating in the Minecraft Beta: \[\/b\]\[\/color\]\[\/size\].*?\[\/list\]/ims,
     ''
