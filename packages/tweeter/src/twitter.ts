@@ -1,13 +1,12 @@
-import Twitter from 'twitter-lite'
+import { TwitterApiReadOnly } from "twitter-api-v2"
 
 export interface TwitterConfig {
-  apiKey: string
-  apiSecretKey: string
-  bearerToken: string
+  appKey: string
+  appSecret: string
 }
 
 export async function getTweetBBCode(
-  twitterClient: Twitter | undefined,
+  twitterClient: TwitterApiReadOnly | undefined,
   tweetId: string,
   mode: 'light' | 'dark'
 ): Promise<string> {
@@ -38,35 +37,20 @@ const ProfilePictures = new Map<string, string>([
     ['Mega_Spud', 'https://attachment.mcbbs.net/data/myattachment/forum/202107/07/230046homkfqlhwvkfqkbh.jpg'],
 ])
 
-export async function getTweet(twitterClient: Twitter, mode: 'dark' | 'light', tweetId: string, translator='？？？') {
-  try {
-      const result: {
-          data: {
-              source: string,
-              created_at: string,
-              text: string,
-              entities?: {
-                  urls?: { start: number, end: number, url: string, expanded_url: string, display_url: string }[]
-              },
-              id: string,
-              author_id: string,
-              lang: string,
-          },
-          includes: {
-              users: { id: string, name: string, username: string }[],
-          },
-          _headers: Record<string, unknown>,
-      } = await twitterClient.get(`tweets/${tweetId}`, {
+export async function getTweet(twitterClient: TwitterApiReadOnly, mode: 'dark' | 'light', tweetId: string, translator='？？？') {
+//  try {
+  console.log('sending')
+      const result = await twitterClient.v2.singleTweet(`${tweetId}`, {
           expansions: 'attachments.media_keys,author_id',
           'tweet.fields': 'attachments,author_id,created_at,entities,lang,source,text',
           'user.fields': 'name,username',
       })
-      const author = result.includes.users.find(u => u.id === result.data.author_id)!
+      const author = result.includes?.users?.find(u => u.id === result.data.author_id)!
       const bbcode = getTweetBbcode({
-          date: new Date(result.data.created_at),
-          lang: result.data.lang,
+          date: new Date(result.data.created_at!),
+          lang: result.data.lang!,
           mode,
-          source: result.data.source,
+          source: result.data.source!,
           text: result.data.text,
           translator,
           tweetLink: `https://twitter.com/${author.username}/status/${tweetId}`,
@@ -76,13 +60,13 @@ export async function getTweet(twitterClient: Twitter, mode: 'dark' | 'light', t
       })
       console.log(bbcode)
       return bbcode
-  } catch (e) {
-    // https://stackoverflow.com/a/69028217
-    if (e instanceof Error) {
-      console.error(`❌ 与 Twitter API 交互出错：\n\`\`\`\n${e?.toString().slice(0, 127)}\n\`\`\``)
-      throw new Error(`❌ 与 Twitter API 交互出错：\n\`\`\`\n${e?.toString().slice(0, 127)}\n\`\`\``)
-    }
-  }
+//  } catch (e) {
+//    // https://stackoverflow.com/a/69028217
+//    if (e instanceof Error) {
+//      console.error(`❌ 与 Twitter API 交互出错：\n\`\`\`\n${e?.toString().slice(0, 127)}\n\`\`\``)
+//      throw new Error(`❌ 与 Twitter API 交互出错：\n\`\`\`\n${e?.toString().slice(0, 127)}\n\`\`\``)
+//    }
+//  }
 }
 
 function getTweetBbcode({
