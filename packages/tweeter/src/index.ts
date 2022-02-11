@@ -1,5 +1,4 @@
 import { TwitterApi, TwitterApiReadOnly } from 'twitter-api-v2'
-import * as HttpProxyAgent from 'https-proxy-agent'
 import express from 'express'
 import path from 'path'
 import url from 'url'
@@ -36,7 +35,7 @@ let twitter: TwitterConfig | undefined
   }
   try {
     if (twitter) {
-      twitterClient = await new TwitterApi({ appKey: twitter.appKey, appSecret: twitter.appSecret }, {httpAgent: new HttpProxyAgent.HttpsProxyAgent(process.env.HTTP_PROXY!)}).readOnly.appLogin()
+      twitterClient = await new TwitterApi({ appKey: twitter.appKey, appSecret: twitter.appSecret }).readOnly.appLogin()
       console.info('Twitter App connected.')
     }
   } catch (e) {
