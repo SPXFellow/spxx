@@ -13,7 +13,7 @@ const translators = {
       // Bedrock Edition titles
       [
         /Minecraft Beta (?:-|——) (.*?) \((.*?)\)/gi,
-        'Minecarft 基岩版 Beta $1（$2）',
+        'Minecraft 基岩版 Beta $1（$2）',
       ],
       [/Minecraft (?:-|——) (.*?) \(Bedrock\)/gi, 'Minecraft 基岩版 $1'],
       [
