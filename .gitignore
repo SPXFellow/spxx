@@ -3,6 +3,9 @@ node_modules
 dist
 out
 config.json
+.rollup.cache/
+*.tsbuildinfo
+.vscode/
 
 # local env files
 .env.local
@@ -22,5 +25,3 @@ lerna-debug.log*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
-tsconfig.tsbuildinfo
