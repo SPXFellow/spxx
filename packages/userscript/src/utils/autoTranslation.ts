@@ -41,10 +41,10 @@ const translators = {
       [/Technical Updates/gi, '技术性更新'],
       [/Vanilla Parity/gi, '待同步特性'],
       [/Character Creator/gi, '角色创建器'],
-          // JE subheadings
+      // JE subheadings
       [/Minecraft Snapshot /gi, 'Minecraft 快照 '],
-      [/Pre-Release /gi, '预发布版 '],
-      [/Release Candidate /gi, '候选版本 '],
+      [/Pre-Release /gi, 'pre-'],
+      [/Release Candidate /gi, 'rc-'],
       [
         /\[size=6\]\[b\]New Features in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
         '[size=6][b]$1 的新增特性[/b][/size]',
