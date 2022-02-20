@@ -386,16 +386,22 @@ export const converters = {
     return ans
   },
   li: async (ele: HTMLElement, ctx: Context) => {
-    const inner = await converters.recurse(ele, { ...ctx, inList: true })
+    
     let ans: string
     if (
-      ele.childNodes.length === 1 &&
-      (ele.childNodes[0].nodeName === 'OL' ||
-        ele.childNodes[0].nodeName === 'UL')
+      ele.childNodes.length === 4 &&
+      (ele.childNodes[2].nodeName === 'OL' ||
+        ele.childNodes[2].nodeName === 'UL')
     ) {
       // Nested lists.
-      ans = `[*]${translate(translateBugs(inner, ctx), ctx, 'code')}\n`
+      const theParagragh = await converters.convert(ele.childNodes[0], { ...ctx, inList: true });
+      const theList = await converters.convert(ele.childNodes[2], { ...ctx, inList: true });
+      ans = `[*][color=Silver]${theParagragh.replace(
+        /#388d40/g,
+        'Silver'
+      )}[/color]\n[*]${translate(translateBugs(theParagragh, ctx), ctx, 'code')}\n${theList}`
     } else {
+      const inner = await converters.recurse(ele, { ...ctx, inList: true })
       ans = `[*][color=Silver]${inner.replace(
         /#388d40/g,
         'Silver'
