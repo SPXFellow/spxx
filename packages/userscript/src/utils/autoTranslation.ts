@@ -46,20 +46,20 @@ const translators = {
       [/Pre-Release /gi, 'pre-'],
       [/Release Candidate /gi, 'rc-'],
       [
-        /\[size=6\]\[b\]New Features in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
-        '[size=6][b]$1 的新增特性[/b][/size]',
+        /New Features in ([^\r\n]+)/gi,
+        '$1 的新增特性',
       ],
       [
-        /\[size=6\]\[b\]Changes in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
-        '[size=6][b]$1 的修改内容[/b][/size]',
+        /Changes in ([^\r\n]+)/gi,
+        '$1 的修改内容',
       ],
       [
-        /\[size=6\]\[b\]Technical changes in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
-        '[size=6][b]$1 的技术性修改[/b][/size]',
+        /Technical changes in ([^\r\n]+)/gi,
+        '$1 的技术性修改',
       ],
       [
-        /\[size=6\]\[b\]Fixed bugs in ([^\r\n]+)\[\/b\]\[\/size\]/gi,
-        '[size=6][b]$1 修复的漏洞[/b][/size]',
+        /Fixed bugs in ([^\r\n]+)/gi,
+        '$1 修复的漏洞',
       ],
     ])
   },

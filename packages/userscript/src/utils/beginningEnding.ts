@@ -98,11 +98,12 @@ export function getEnding(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
     return ''
   }
+  const feedbackSite = "[url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]"
   switch (type) {
     case VersionType.Snapshot:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
 [*][url=https://bugs.mojang.com/browse/MC][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*][url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]
+[*]${feedbackSite}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
@@ -123,7 +124,7 @@ export function getEnding(articleType: string, type: VersionType) {
     case VersionType.PreRelease:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
 [*][url=https://bugs.mojang.com/browse/MC][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*][url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]
+[*]${feedbackSite}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
@@ -144,7 +145,7 @@ export function getEnding(articleType: string, type: VersionType) {
     case VersionType.ReleaseCandidate:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
 [*][url=https://bugs.mojang.com/browse/MC][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*][url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]
+[*]${feedbackSite}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
@@ -165,7 +166,7 @@ export function getEnding(articleType: string, type: VersionType) {
     case VersionType.Release:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
 [*][url=https://bugs.mojang.com/browse/MC][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*][url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]
+[*]${feedbackSite}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
@@ -189,14 +190,13 @@ export function getEnding(articleType: string, type: VersionType) {
 [tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/39/common_137_icon.png[/img][/float][size=24px][b][color=#645944] 实用链接[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://bugs.mojang.com/browse/MCPE][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*][url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]
+[*]${feedbackSite}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=40,32]https://attachment.mcbbs.net/data/myattachment/common/d6/common_39_icon.png[/img][/float][size=24px][b][color=#645944] 如何游玩测试版？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*]请访问[url=https://www.minecraft.net/zh-hans/get-minecraft][color=Sienna]官方游戏获取地址[/color][/url]，根据您所使用的平台获取游戏。
-[*]在新建/编辑地图时，请滑动到「实验性游戏内容（Experiments）」，打开 "Caves & Cliffs" 即可体验洞穴与山崖更新的最新内容。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
@@ -213,15 +213,15 @@ export function getEnding(articleType: string, type: VersionType) {
 [tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/39/common_137_icon.png[/img][/float][size=24px][b][color=#645944] 实用链接[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://bugs.mojang.com/browse/MCPE][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*][url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]
+[*]${feedbackSite}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=40,32]https://attachment.mcbbs.net/data/myattachment/common/d6/common_39_icon.png[/img][/float][size=24px][b][color=#645944] 如何游玩测试版？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*]请访问[url=https://www.minecraft.net/zh-hans/get-minecraft][color=Sienna]官方游戏获取地址[/color][/url]，根据您所使用的平台获取游戏。
-[*]基岩测试版仅限于 Windows 10、Android、Xbox One 平台。请根据[url=https://www.mcbbs.net/thread-1183093-1-1.html][color=Sienna]官方指引[/color][/url]启用/关闭测试版。
-[*]在新建/编辑地图时，请滑动到「实验性游戏内容（Experiments）」，打开 "Caves & Cliffs" 即可体验洞穴与山崖更新的最新内容。
+[*]基岩测试版仅限于 Windows 10、Android、iOS、Xbox One 平台。请根据[url=https://www.mcbbs.net/thread-1183093-1-1.html][color=Sienna]官方指引[/color][/url]启用/关闭测试版。
+[*]在新建/编辑地图时，请滑动到「实验性游戏内容（Experiments）」，选取你想体验的实验性内容。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
