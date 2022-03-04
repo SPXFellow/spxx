@@ -36,7 +36,7 @@ async function convertFeedbackArticleToBBCode(
 
   let versionType = VersionType.Normal
 
-  if (document.querySelector('[title="Beta Information and Changelogs"]')) {
+  if (document.querySelector('[title="Beta and Preview Information and Changelogs"]')) {
     versionType = VersionType.BedrockBeta
   } else if (document.querySelector('[title="Release Changelogs"]')) {
     versionType = VersionType.BedrockRelease
