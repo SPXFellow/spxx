@@ -15,6 +15,10 @@ const translators = {
         /Minecraft Beta (?:-|——) (.*?) \((.*?)\)/gi,
         'Minecraft 基岩版 Beta $1（$2）',
       ],
+      [
+        /Minecraft Beta & Preview - (.*?)/g,
+        'Minecraft 基岩版 Beta & Preview $1'
+      ],
       [/Minecraft (?:-|——) (.*?) \(Bedrock\)/gi, 'Minecraft 基岩版 $1'],
       [
         /Minecraft (?:-|——) (.*?) \((.*?) Only\)/gi,
