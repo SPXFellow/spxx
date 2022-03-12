@@ -296,11 +296,11 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
-      `${prefix}${inner}${suffix}`,
+      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')}\n\n`
+    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
 
     return ans
   },
@@ -312,11 +312,11 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
-      `${prefix}${inner}${suffix}`,
+      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')}\n\n`
+    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
 
     return ans
   },
@@ -326,11 +326,11 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
-      `${prefix}${inner}${suffix}`,
+      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')}\n\n`
+    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
 
     return ans
   },
@@ -340,11 +340,11 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
-      `${prefix}${inner}${suffix}`,
+      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')}\n\n`
+    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
 
     return ans
   },
