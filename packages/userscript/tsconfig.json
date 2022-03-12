@@ -2,9 +2,9 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": "src"
   },
   "include": ["src/**/*"],
-  "exclude": ["rollup.config.js", "out/**/*", "dist/**/*"],
+  "exclude": ["rollup.config.ts", "out/**/*", "dist/**/*"],
   "extends": "../../tsconfig.base.json"
 }

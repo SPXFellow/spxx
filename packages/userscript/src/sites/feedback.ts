@@ -2,6 +2,8 @@ import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
 import { converters } from '../utils/converter'
 import { Context } from '../types'
 import translateMachinely from '../utils/autoTranslation'
+import { getZendeskDate } from '../utils/zendesk'
+import config from '../config'
 
 export function feedback() {
   const button = document.createElement('a')
@@ -21,7 +23,7 @@ export function feedback() {
 async function convertFeedbackArticleToBBCode(
   html: Document,
   articleUrl: string,
-  translator = '？？？'
+  translator = config.translator
 ) {
   const title = html.title.slice(
     0,
@@ -31,6 +33,7 @@ async function convertFeedbackArticleToBBCode(
     bugs: {},
     title: title,
     translator,
+    date: null,
     url: articleUrl,
   }
 
@@ -43,6 +46,7 @@ async function convertFeedbackArticleToBBCode(
   }
 
   const content = await getFeedbackContent(html, ctx)
+  const posted = await getZendeskDate(location.href)
 
   const ans = `[postbg]bg3.png[/postbg]${getBeginning(
     'news',
@@ -57,7 +61,7 @@ ${translateMachinely(
   )}[/indent][/indent]\n
 [b]【${ctx.translator} 译自[url=${
     ctx.url
-  }][color=#388d40][u]feedback.minecraft.net 哪 年 哪 月 哪 日发布的 ${
+  }][color=#388d40][u]feedback.minecraft.net ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
   }[/u][/color][/url]】[/b]
 【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url]】\n\n${getEnding(

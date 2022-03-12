@@ -3,6 +3,7 @@ export interface Context {
   bugs: ResolvedBugs
   disablePunctuationConverter?: boolean
   inList?: boolean
+  date: DateConstructor | null
   title: string
   translator: string
   url: string

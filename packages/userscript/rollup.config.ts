@@ -6,9 +6,8 @@ import nodeResolve from '@rollup/plugin-node-resolve'
 import jsonPlugin from '@rollup/plugin-json'
 import * as pkg from './package.json'
 
-
 export default defineConfig({
-  input: './src/main.ts',
+  input: 'src/main.ts',
   output: {
     file: 'dist/bundle.user.js',
     format: 'iife',

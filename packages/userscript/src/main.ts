@@ -1,6 +1,7 @@
 import { minecraftNet } from './sites/minecraft-net'
 import { feedback } from './sites/feedback'
 import { help } from './sites/help'
+import './config'
 
 switch (location.host) {
   case 'www.minecraft.net':

@@ -1,3 +1,4 @@
+import config from '../config'
 import { Context, ResolvedBugs } from '../types'
 import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
 import { getBugs, resolveUrl, converters } from '../utils/converter'
@@ -37,7 +38,7 @@ export async function minecraftNet() {
 async function convertMCArticleToBBCode(
   html: Document,
   articleUrl: string,
-  translator = '？？？'
+  translator = config.translator
 ) {
   const articleType = getArticleType(html)
   const versionType = getVersionType(articleUrl)
@@ -55,6 +56,7 @@ async function convertMCArticleToBBCode(
   const content = await getContent(html, {
     bugs,
     title: html.title.split(' | ').slice(0, -1).join(' | '),
+    date: null,
     translator,
     url: articleUrl,
   })

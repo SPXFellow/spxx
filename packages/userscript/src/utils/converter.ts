@@ -296,25 +296,27 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
+      `${prefix}${inner}${suffix}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
   },
   h2: async (ele: HTMLElement, ctx: Context) => {
+    if (isBlocklisted(ele.textContent!)) return ''
+
     const prefix = '[size=5][b]'
     const suffix = '[/b][/size]'
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
+      `${prefix}${inner}${suffix}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
   },
@@ -324,11 +326,11 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
+      `${prefix}${inner}${suffix}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
   },
@@ -338,11 +340,11 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
+      .replace(/[\n\r]+/g, ' ')}[/color]${suffix}\n${translate(
+      `${prefix}${inner}${suffix}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')}\n\n`
 
     return ans
   },
@@ -386,7 +388,7 @@ export const converters = {
     return ans
   },
   li: async (ele: HTMLElement, ctx: Context) => {
-    
+
     let ans: string
     if (
       ele.childNodes.length === 4 &&
@@ -400,6 +402,8 @@ export const converters = {
         /#388d40/g,
         'Silver'
       )}[/color]\n[*]${translate(translateBugs(theParagragh, ctx), ctx, 'code')}\n${theList}`
+    } else if (isBlocklisted(ele.textContent!)) {
+      return ''
     } else {
       const inner = await converters.recurse(ele, { ...ctx, inList: true })
       ans = `[*][color=Silver]${inner.replace(
@@ -426,6 +430,12 @@ export const converters = {
         inner,
         ctx, 'headings'
       )}[/b][/size]\n\n`
+    } else if (ele.querySelector('strong') !== null && ele.querySelector('strong')!.textContent === 'Posted:') {
+      return ''
+    } else if (isBlocklisted(ele.textContent!)) {
+      return ''
+    } else if (ele.innerHTML === '&nbsp;') {
+      return '\n'
     } else {
       if (ctx.inList) {
         ans = inner
@@ -460,6 +470,10 @@ export const converters = {
       const prefix = '[s]'
       const suffix = '[/s]'
       return `${prefix}${ans}${suffix}`
+    } else if (ele.childElementCount === 1 && ele.firstElementChild!.nodeName === 'IMG') {
+      // Image.
+      const img = ele.firstElementChild! as HTMLImageElement
+      return await converters.img(img)
     }
 
     return ans
@@ -565,4 +579,15 @@ function shouldUseAlbum(slides: [string, string][]) {
     ? slides.length > 1
     : // eslint-disable-next-line @typescript-eslint/no-unused-vars
       slides.every(([_, caption]) => caption === ' ')
+}
+
+function isBlocklisted(text: string): boolean {
+  const blocklist: string[] = [
+    'Information on the Minecraft Preview and Beta:',
+    'While the version numbers between Preview and Beta are different, there is no difference in game content',
+    'These work-in-progress versions can be unstable and may not be representative of final version quality',
+    'Minecraft Preview is available on Xbox, Windows 10/11, and iOS devices. More information can be found at aka.ms/PreviewFAQ',
+    'The beta is available on Xbox, Windows 10/11, and Android (Google Play). To join or leave the beta, see aka.ms/JoinMCBeta for detailed instructions',
+  ]
+  return blocklist.some((block) => text.replace(/\u202f/g, ' ').includes(block))
 }

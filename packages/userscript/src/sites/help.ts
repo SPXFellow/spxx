@@ -1,6 +1,8 @@
 import { converters } from '../utils/converter'
 import { Context } from '../types'
 import translateMachinely from '../utils/autoTranslation'
+import { getZendeskDate } from '../utils/zendesk'
+import config from '../config'
 
 export function help() {
   const button = document.createElement('a')
@@ -24,16 +26,18 @@ export function help() {
 async function convertHelpArticleToBBCode(
   html: Document,
   articleUrl: string,
-  translator = '？？？'
+  translator = config.translator
 ) {
   const title = html.title.slice(0, html.title.lastIndexOf(' – Home'))
   const ctx = {
     bugs: {},
     title: title,
+    date: null,
     translator,
     url: articleUrl,
   }
   const content = await getHelpContent(html, ctx)
+  const posted = await getZendeskDate(location.href)
 
   const ans = `[postbg]bg3.png[/postbg][align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
 ${translateMachinely(
@@ -42,7 +46,7 @@ ${translateMachinely(
 )}[/align]\n\n${content}[/indent][/indent]\n
 [b]【${ctx.translator} 译自[url=${
     ctx.url
-  }][color=#388d40][u]help.minecraft.net 哪 年 哪 月 哪 日发布的 ${
+  }][color=#388d40][u]help.minecraft.net ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
   }[/u][/color][/url]】[/b]
 【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url]】\n\n`
