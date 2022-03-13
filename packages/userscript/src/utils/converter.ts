@@ -436,6 +436,8 @@ export const converters = {
       return ''
     } else if (ele.innerHTML === '&nbsp;') {
       return '\n'
+    } else if (/\s{0,}/.test(ele.textContent!) && ele.querySelectorAll('img').length === 1) {
+      return inner
     } else {
       if (ctx.inList) {
         ans = inner
