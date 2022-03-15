@@ -296,11 +296,15 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      .replace(/[\n\r]+/g, ' ')
+      .toUpperCase()
+      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')
+    .toUpperCase()
+    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
 
     return ans
   },
@@ -312,11 +316,15 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      .replace(/[\n\r]+/g, ' ')
+      .toUpperCase()
+      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')
+    .toUpperCase()
+    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
 
     return ans
   },
@@ -326,11 +334,15 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      .replace(/[\n\r]+/g, ' ')
+      .toUpperCase()
+      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')
+    .toUpperCase()
+    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
 
     return ans
   },
@@ -340,11 +352,15 @@ export const converters = {
     const inner = await converters.recurse(ele, ctx)
     const ans = `\n${prefix}[color=Silver]${inner
       .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ').toUpperCase()}[/color]${suffix}\n${prefix}${translate(
+      .replace(/[\n\r]+/g, ' ')
+      .toUpperCase()
+      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ').toUpperCase()}${suffix}\n\n`
+    ).replace(/[\n\r]+/g, ' ')
+    .toUpperCase()
+    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
 
     return ans
   },
