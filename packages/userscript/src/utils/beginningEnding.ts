@@ -14,20 +14,19 @@ export function getBeginning(articleType: string, type: VersionType) {
 [tr=#FDF6E5][td][size=16px][list]
 [*][b]每周快照[/b]是 Minecraft Java 版的测试机制，用于新特性的展示和反馈收集。
 [*][color=#8E2609]快照有可能导致存档损坏，因此请注意备份，不要直接在你的主存档游玩快照。[/color]
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [*]部分新特性译名仅供参考，不代表最终结果。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 
-[hr]\n
-【如果没有新方块物品等内容，请删去上方待定译名行。】\n`
+[hr]\n`
     case VersionType.PreRelease:
       return `[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=48,48]https://attachment.mcbbs.net/data/myattachment/common/6c/common_45_icon.png[/img][/float][size=32px][b][color=#645944]预发布版[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][b]预发布版[/b]是 Minecraft Java 版的测试机制，主要是为了收集漏洞反馈，为正式发布做好准备。
 [*][color=#8E2609]预发布版有可能导致存档损坏，因此请注意备份，不要直接在你的主存档游玩预发布版。[/color]
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [*]部分新特性译名仅供参考，不代表最终结果。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
@@ -39,19 +38,19 @@ export function getBeginning(articleType: string, type: VersionType) {
 [tr=#FDF6E5][td][size=16px][list]
 [*][b]候选版本[/b]是 Minecraft Java 版的测试机制。如果没有重大漏洞，该版本将会被用于正式发布。
 [*][color=#8E2609]候选版本有可能导致存档损坏，因此请注意备份，不要直接在你的主存档游玩候选版本。[/color]
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [*]部分新特性译名仅供参考，不代表最终结果。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 
-[hr]\n`
+[hr]n`
     case VersionType.Release:
       return `[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=46,48]https://ooo.0o0.ooo/2017/01/30/588f60bbaaf78.png[/img][/float][size=32px][b][color=#645944] Minecraft Java 版[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][b]Minecraft Java 版[/b]是指运行在 Windows、macOS 与 Linux 平台上，使用 Java 语言开发的 Minecraft 版本。
 [*][b]正式版[/b]包含所有特性且安全稳定，所有玩家都可以尽情畅享。
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 
@@ -63,7 +62,7 @@ export function getBeginning(articleType: string, type: VersionType) {
 [tr=#FDF6E5][td][size=16px][list]
 [*][b]Minecraft 基岩版[/b]是指运行在移动平台（Android、iOS）、Windows 10、主机（Xbox One、Switch、PlayStation 4）上，使用「基岩引擎」（C++语言）开发的 Minecraft 版本。
 [*][b]正式版[/b]包含所有特性且安全稳定，所有玩家都可以尽情畅享。
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 
@@ -75,7 +74,7 @@ export function getBeginning(articleType: string, type: VersionType) {
 [tr=#FDF6E5][td][size=16px][list]
 [*][b]测试版[/b]是 Minecraft 基岩版的测试机制，主要用于下一个正式版的特性预览。
 [*][color=#8E2609]测试版有可能导致存档损坏，因此请注意备份，不要直接在你的主存档游玩测试版。[/color]
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [*]部分新特性译名仅供参考，不代表最终结果。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
@@ -87,7 +86,7 @@ export function getBeginning(articleType: string, type: VersionType) {
       return `[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/3c/common_499_icon.png[/img][/float][size=24px][b][color=#645944] 转载须知[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
-[*]转载本贴时须要注明原作者以及本帖地址。
+[*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [hr]\n`

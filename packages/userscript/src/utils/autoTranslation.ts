@@ -27,7 +27,6 @@ const translators = {
       [/Minecraft (?:-|——) (.*?) \((.*?)\)/gi, 'Minecraft 基岩版 $1（仅$2）'],
 
       // BE subheadings
-      [/Caves & Cliffs Experimental Features/gi, '洞穴与山崖实验性特性'], // to be deprecated
       [/Marketplace/gi, '市场'],
       [/Data-Driven/gi, '数据驱动'],
       [/Graphical/gi, '图像'],
@@ -42,13 +41,20 @@ const translators = {
       [/Blocks/gi, '方块'],
       [/User Interface/gi, '用户界面'],
       [/Commands/gi, '命令'],
+      [/Known Issues/gi, '已知问题'],
       [/Technical Updates/gi, '技术性更新'],
       [/Vanilla Parity/gi, '待同步特性'],
       [/Character Creator/gi, '角色创建器'],
+      [/Components/gi, '组件'],
+      [/General/gi, '通用'],
+      [/Technical Experimental/gi, '实验性技术性更新'],
+      [/Gametest Framework/gi, 'Gametest 框架'],
+      [/Gametest Framework (experimental)/gi, 'Gametest 框架（实验性）'],
       // JE subheadings
       [/Minecraft Snapshot /gi, 'Minecraft 快照 '],
-      [/Pre-Release /gi, 'pre-'],
-      [/Release Candidate /gi, 'rc-'],
+      [/ Pre-Release /gi, '-pre'],
+      [/ Release Candidate /gi, '-rc'],
+      [/Release Candidate/gi, '候选版本'],
       [
         /New Features in ([^\r\n]+)/gi,
         '$1 的新增特性',
