@@ -1,6 +1,6 @@
 {
   "name": "@spxx/userscript",
-  "version": "2.3.8",
+  "version": "2.4.0",
   "description": "The userscript of spxx, the ultimate MCBBS newslord utility.",
   "main": "dist/bundle.user.js",
   "type": "module",
