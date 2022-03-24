@@ -91,6 +91,8 @@ function getVersionType(url: string): VersionType {
     return VersionType.Snapshot
   } else if (url.toLowerCase().includes('minecraft-java-edition')) {
     return VersionType.Release
+  } else if (url.toLowerCase().includes('minecraft-beta---preview---')) {
+    return VersionType.BedrockBeta
   } else {
     return VersionType.Normal
   }

@@ -607,5 +607,5 @@ function isBlocklisted(text: string): boolean {
     'Minecraft Preview is available on Xbox, Windows 10/11, and iOS devices. More information can be found at aka.ms/PreviewFAQ',
     'The beta is available on Xbox, Windows 10/11, and Android (Google Play). To join or leave the beta, see aka.ms/JoinMCBeta for detailed instructions',
   ]
-  return blocklist.some((block) => text.replace(/\u202f/g, ' ').includes(block))
+  return blocklist.some((block) => text.replace(/\u202f/g, ' ').trim().trim().includes(block))
 }
