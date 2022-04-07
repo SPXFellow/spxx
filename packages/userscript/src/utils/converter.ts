@@ -55,6 +55,8 @@ export const converters = {
         return converters.p(node as HTMLElement, ctx)
       case 'PICTURE': // TODO: If picture contains important img in the future. Then just attain the last <img> element in the <picture> element.
         return converters.picture(node as HTMLElement, ctx)
+      case 'PRE':
+        return converters.pre(node as HTMLElement, ctx)
       case 'SPAN':
         return converters.span(node as HTMLElement, ctx)
       case 'TABLE':
@@ -70,7 +72,10 @@ export const converters = {
         return converters.ul(node as HTMLElement, ctx)
       case '#text':
         if (node) {
-          return ((node as Text).textContent as string)
+          if (ctx.multiLineCode){
+            return node.textContent ? node.textContent : ''
+          }
+          else return ((node as Text).textContent as string)
             .replace(/[\n\r\t]+/g, '')
             .replace(/\s{2,}/g, '')
         } else {
@@ -113,7 +118,7 @@ export const converters = {
   },
   a: async (anchor: HTMLAnchorElement, ctx: Context) => {
     const url = resolveUrl(anchor.href)
-    let ans
+    let ans: string
     if (url) {
       ans = `[url=${url}][color=#388d40]${await converters.recurse(
         anchor,
@@ -146,9 +151,9 @@ export const converters = {
     return ans
   },
   code: async (ele: HTMLElement, ctx: Context) => {
-    const prefix =
+    const prefix = ctx.multiLineCode? '[code]':
       '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
-    const suffix = '[/font][/color][/backcolor]'
+    const suffix = ctx.multiLineCode? '[/code]': '[/font][/color][/backcolor]'
 
     const ans = `${prefix}${await converters.recurse(ele, {
       ...ctx,
@@ -293,18 +298,18 @@ export const converters = {
   h1: async (ele: HTMLElement, ctx: Context) => {
     const prefix = '[size=6][b]'
     const suffix = '[/b][/size]'
-    const inner = await converters.recurse(ele, ctx)
-    const ans = `${prefix}[color=Silver]${inner
-      .replace(/#388d40/g, 'Silver')
-      .replace(/[\n\r]+/g, ' ')
-      .toUpperCase()
-      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
-      ctx,
-      ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')
-    .toUpperCase()
-    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
+    const rawInner = await converters.recurse(ele, ctx)
+    const inner = makeUppercaseHeader(rawInner)
+    const ans = `${prefix}[color=Silver]${usingSilver(inner)
+        .replace(/[\n\r]+/g, ' ')
+      }[/color]${suffix}\n${prefix}${
+        translate(
+          `${inner}`,
+          ctx,
+          ['headings', 'punctuation']
+        )
+        .replace(/[\n\r]+/g, ' ')
+      }${suffix}\n\n`
 
     return ans
   },
@@ -313,54 +318,48 @@ export const converters = {
 
     const prefix = '[size=5][b]'
     const suffix = '[/b][/size]'
-    const inner = await converters.recurse(ele, ctx)
-    const ans = `\n${prefix}[color=Silver]${inner
-      .replace(/#388d40/g, 'Silver')
+    const rawInner = await converters.recurse(ele, ctx)
+    const inner = makeUppercaseHeader(rawInner)
+    const ans = `\n${prefix}[color=Silver]${usingSilver(inner)
       .replace(/[\n\r]+/g, ' ')
-      .toUpperCase()
-      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
+      }[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')
-    .toUpperCase()
-    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
+    }${suffix}\n\n`
 
     return ans
   },
   h3: async (ele: HTMLElement, ctx: Context) => {
     const prefix = '[size=4][b]'
     const suffix = '[/b][/size]'
-    const inner = await converters.recurse(ele, ctx)
-    const ans = `\n${prefix}[color=Silver]${inner
-      .replace(/#388d40/g, 'Silver')
+    const rawInner = await converters.recurse(ele, ctx)
+    const inner = makeUppercaseHeader(rawInner)
+    const ans = `\n${prefix}[color=Silver]${usingSilver(inner)
       .replace(/[\n\r]+/g, ' ')
-      .toUpperCase()
-      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
+      }[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')
-    .toUpperCase()
-    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
+    }${suffix}\n\n`
 
     return ans
   },
   h4: async (ele: HTMLElement, ctx: Context) => {
     const prefix = '[size=3][b]'
     const suffix = '[/b][/size]'
-    const inner = await converters.recurse(ele, ctx)
-    const ans = `\n${prefix}[color=Silver]${inner
-      .replace(/#388d40/g, 'Silver')
+    const rawInner = await converters.recurse(ele, ctx)
+    const inner = makeUppercaseHeader(rawInner)
+    const ans = `\n${prefix}[color=Silver]${usingSilver(inner)
       .replace(/[\n\r]+/g, ' ')
-      .toUpperCase()
-      .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}[/color]${suffix}\n${prefix}${translate(
+      }[/color]${suffix}\n${prefix}${translate(
       `${inner}`,
       ctx,
       ['headings', 'punctuation']
     ).replace(/[\n\r]+/g, ' ')
-    .toUpperCase()
-    .replace(/\[B\]/g, '[b]').replace(/\[\/B\]/, '[/b]')}${suffix}\n\n`
+    }${suffix}\n\n`
 
     return ans
   },
@@ -406,26 +405,39 @@ export const converters = {
   li: async (ele: HTMLElement, ctx: Context) => {
 
     let ans: string
-    if (
-      ele.childNodes.length === 4 &&
-      (ele.childNodes[2].nodeName === 'OL' ||
-        ele.childNodes[2].nodeName === 'UL')
-    ) {
+
+    let nestedList = false
+    for (const child of ele.childNodes){
+      if (child.nodeName === 'OL' || child.nodeName === 'UL'){
+        nestedList = true
+      }
+    }
+    
+    if (nestedList) {
       // Nested lists.
-      const theParagragh = await converters.convert(ele.childNodes[0], { ...ctx, inList: true });
-      const theList = await converters.convert(ele.childNodes[2], { ...ctx, inList: true });
-      ans = `[*][color=Silver]${theParagragh.replace(
-        /#388d40/g,
-        'Silver'
-      )}[/color]\n[*]${translate(translateBugs(theParagragh, ctx), ctx, 'code')}\n${theList}`
+      let theParagragh = ''
+      let theList = ''
+      let addingList = false
+      for (var i = 0; i < ele.childNodes.length - 1; i++){
+        let nodeName = ele.childNodes[i].nodeName
+        if (nodeName === 'OL' || nodeName === 'UL'){
+          addingList = true
+        } 
+        if (!addingList){
+          const paragraghNode = await converters.convert(ele.childNodes[i], { ...ctx, inList: true });
+          theParagragh = `${theParagragh}${paragraghNode}`
+        }
+        else{
+          const listNode = await converters.convert(ele.childNodes[i], { ...ctx, inList: true });
+          theList = `${theList}${listNode}`
+        }
+      }
+      ans = `[*][color=Silver]${usingSilver(theParagragh)}[/color]\n[*]${translate(translateBugs(theParagragh, ctx), ctx, 'code')}\n${theList}`
     } else if (isBlocklisted(ele.textContent!)) {
       return ''
     } else {
       const inner = await converters.recurse(ele, { ...ctx, inList: true })
-      ans = `[*][color=Silver]${inner.replace(
-        /#388d40/g,
-        'Silver'
-      )}[/color]\n[*]${translate(translateBugs(inner, ctx), ctx, 'code')}\n`
+      ans = `[*][color=Silver]${usingSilver(inner)}[/color]\n[*]${translate(translateBugs(inner, ctx), ctx, 'code')}\n`
     }
 
     return ans
@@ -439,7 +451,7 @@ export const converters = {
   p: async (ele: HTMLElement, ctx: Context) => {
     const inner = await converters.recurse(ele, ctx)
 
-    let ans
+    let ans: string
 
     if (ele.classList.contains('lead')) {
       ans = `[size=4][b][size=2][color=Silver]${inner}[/color][/size][/b][/size]\n[size=4][b]${translate(
@@ -458,10 +470,7 @@ export const converters = {
       if (ctx.inList) {
         ans = inner
       } else {
-        ans = `[size=2][color=Silver]${inner.replace(
-          /#388d40/g,
-          'Silver'
-        )}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
+        ans = `[size=2][color=Silver]${usingSilver(inner)}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
       }
     }
 
@@ -471,6 +480,10 @@ export const converters = {
     const ans = await converters.recurse(ele, ctx)
     return ans
   },
+  pre: async (ele: HTMLElement, ctx: Context) => {
+    const ans = await converters.recurse(ele, {...ctx, multiLineCode: true,})
+    return ans
+  },
   span: async (ele: HTMLElement, ctx: Context) => {
     const ans = await converters.recurse(ele, ctx)
 
@@ -478,7 +491,7 @@ export const converters = {
       // Inline code.
       const prefix =
         '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
-      const suffix = '[/color][/font][/backcolor]'
+      const suffix = '[/font][/color][/backcolor]'
       return `${prefix}${await converters.recurse(ele, {
         ...ctx,
         disablePunctuationConverter: true,
@@ -540,6 +553,16 @@ export function resolveUrl(url: string) {
   }
 }
 
+export function usingSilver(text: string){
+  return text.replace(/#388d40/g,'Silver').replace(/#7824c5/g,'Silver')
+}
+
+export function makeUppercaseHeader(header: string){
+  let inner = header.replace(/\][a-zA-Z0-9_]+\[/g, function(v) { return v.toUpperCase(); })
+  if (inner === header) inner = inner.toUpperCase()
+  return inner
+}
+
 /**
  * Get bugs from BugCenter.
  */
@@ -567,7 +590,7 @@ export async function getBugs(): Promise<ResolvedBugs> {
 
 function markdownToBbcode(value: string): string {
 	return value
-		.replace(/`([^`]+)`/g, '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]$1[/color][/font][/backcolor]')
+		.replace(/`([^`]+)`/g, '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]$1[/font][/color][/backcolor]')
 }
 
 /**

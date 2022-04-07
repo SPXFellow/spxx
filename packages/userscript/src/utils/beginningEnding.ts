@@ -97,7 +97,8 @@ export function getEnding(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
     return ''
   }
-  const feedbackSite = "[url=https://aka.ms/CavesCliffsFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于洞穴与山崖更新）[/color][/url]"
+  const feedbackSite = "[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于Java版）[/color][/url]"
+  const feedbackBE = "[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于基岩版）[/color][/url]"
   switch (type) {
     case VersionType.Snapshot:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
@@ -189,7 +190,7 @@ export function getEnding(articleType: string, type: VersionType) {
 [tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/39/common_137_icon.png[/img][/float][size=24px][b][color=#645944] 实用链接[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://bugs.mojang.com/browse/MCPE][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*]${feedbackSite}
+[*]${feedbackBE}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
@@ -212,7 +213,7 @@ export function getEnding(articleType: string, type: VersionType) {
 [tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/39/common_137_icon.png[/img][/float][size=24px][b][color=#645944] 实用链接[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*][url=https://bugs.mojang.com/browse/MCPE][color=Sienna]漏洞报告站点（仅限英文）[/color][/url]
-[*]${feedbackSite}
+[*]${feedbackBE}
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 [align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]

@@ -60,12 +60,12 @@ const translators = {
         '$1 的新增特性',
       ],
       [
-        /Changes in ([^\r\n]+)/gi,
-        '$1 的修改内容',
-      ],
-      [
         /Technical changes in ([^\r\n]+)/gi,
         '$1 的技术性修改',
+      ],
+      [
+        /Changes in ([^\r\n]+)/gi,
+        '$1 的修改内容',
       ],
       [
         /Fixed bugs in ([^\r\n]+)/gi,

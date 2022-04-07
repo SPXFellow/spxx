@@ -2,6 +2,7 @@ export interface Context {
   author?: string
   bugs: ResolvedBugs
   disablePunctuationConverter?: boolean
+  multiLineCode?:boolean
   inList?: boolean
   date: DateConstructor | null
   title: string
