@@ -3,6 +3,8 @@
  * This needs continuous updates according to https://www.mcbbs.net/thread-1253320-1-1.html#pid23311399.
  */
 
+ import { spxxVersion } from './consts'
+
 export function getBeginning(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
     return ''
@@ -97,8 +99,9 @@ export function getEnding(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
     return ''
   }
-  const feedbackSite = "[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于Java版）[/color][/url]"
-  const feedbackBE = "[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于基岩版）[/color][/url]"
+  const feedbackSite = `[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于Java版）[/color][/url]`
+  const feedbackBE = `[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于基岩版）[/color][/url]`
+  const poweredBy = `[align=center][size=1][color=Silver]Powered by SPXX ${spxxVersion} with love[/color][/size][/align]`
   switch (type) {
     case VersionType.Snapshot:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
@@ -119,7 +122,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
 
     case VersionType.PreRelease:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
@@ -140,7 +144,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
 
     case VersionType.ReleaseCandidate:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
@@ -161,7 +166,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
 
     case VersionType.Release:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
@@ -182,7 +188,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
 
     case VersionType.BedrockRelease:
       return `\n[hr]
@@ -205,7 +212,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
 
     case VersionType.BedrockBeta:
       return `\n[hr]
@@ -230,7 +238,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
 
     case VersionType.Normal:
     default:
@@ -241,7 +250,8 @@ export function getEnding(articleType: string, type: VersionType) {
 [*][url=https://www.mcbbs.net/thread-874677-1-1.html][color=Sienna]外部来源以及详细的更新条目追踪[/color][/url]
 [*][url=https://www.mcbbs.net/forum.php?mod=forumdisplay&fid=139][color=Sienna]我的世界中文论坛 - 幻翼块讯板块[/color][/url]
 [/list][/size][/td][/tr]
-[/table][/font][/align]`
+[/table][/font][/align]
+${poweredBy}`
   }
 }
 
