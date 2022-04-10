@@ -2,7 +2,7 @@ export interface Context {
   author?: string
   bugs: ResolvedBugs
   disablePunctuationConverter?: boolean
-  multiLineCode?:boolean
+  multiLineCode?: boolean
   inList?: boolean
   date: DateConstructor | null
   title: string
@@ -16,6 +16,8 @@ export interface ResolvedBugs {
 
 export type TranslationMappings = [RegExp, string][]
 
-export type AutoTranslationTypes = 'code' | 'headings' | 'punctuation' | 'imgCredits'
-
-export const BugsCenter = 'https://raw.githubusercontent.com/SPXFellow/spxx-translation-database/crowdin/zh-CN/zh_CN.json'
+export type AutoTranslationTypes =
+  | 'code'
+  | 'headings'
+  | 'punctuation'
+  | 'imgCredits'

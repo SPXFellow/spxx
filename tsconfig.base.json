@@ -1,17 +1,17 @@
 {
-	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"module": "esnext",
-		"target": "esnext",
-		"outDir": "./out",
-		"rootDir": "./src",
-		"lib": ["esnext", "DOM", "DOM.Iterable"],
-		"sourceMap": true,
-		"strict": true,
-		"incremental": true,
-    "moduleResolution": "node",
-	},
-	"include": ["src"],
-	"exclude": ["node_modules", "src/test"]
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "target": "esnext",
+    "outDir": "./out",
+    "rootDir": "./src",
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "sourceMap": true,
+    "strict": true,
+    "incremental": true,
+    "moduleResolution": "node"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "src/test"]
 }

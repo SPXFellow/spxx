@@ -1,5 +1,6 @@
-import { Context, ResolvedBugs, BugsCenter } from '../types'
+import { Context, ResolvedBugs } from '../types'
 import translate from './autoTranslation'
+import { bugsCenter, spxxVersion } from './consts'
 
 export const converters = {
   /**
@@ -72,12 +73,12 @@ export const converters = {
         return converters.ul(node as HTMLElement, ctx)
       case '#text':
         if (node) {
-          if (ctx.multiLineCode){
+          if (ctx.multiLineCode) {
             return node.textContent ? node.textContent : ''
-          }
-          else return ((node as Text).textContent as string)
-            .replace(/[\n\r\t]+/g, '')
-            .replace(/\s{2,}/g, '')
+          } else
+            return ((node as Text).textContent as string)
+              .replace(/[\n\r\t]+/g, '')
+              .replace(/\s{2,}/g, '')
         } else {
           return ''
         }
@@ -151,9 +152,10 @@ export const converters = {
     return ans
   },
   code: async (ele: HTMLElement, ctx: Context) => {
-    const prefix = ctx.multiLineCode? '[code]':
-      '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
-    const suffix = ctx.multiLineCode? '[/code]': '[/font][/color][/backcolor]'
+    const prefix = ctx.multiLineCode
+      ? '[code]'
+      : '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
+    const suffix = ctx.multiLineCode ? '[/code]' : '[/font][/color][/backcolor]'
 
     const ans = `${prefix}${await converters.recurse(ele, {
       ...ctx,
@@ -260,7 +262,7 @@ export const converters = {
     const ans = `\n\n${await converters.recurse(
       ele,
       ctx
-    )}\n【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url]】\n\n`
+    )}\n【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】\n\n`
     return ans
   },
   dd: async (ele: HTMLElement, ctx: Context) => {
@@ -300,16 +302,13 @@ export const converters = {
     const suffix = '[/b][/size]'
     const rawInner = await converters.recurse(ele, ctx)
     const inner = makeUppercaseHeader(rawInner)
-    const ans = `${prefix}[color=Silver]${usingSilver(inner)
-        .replace(/[\n\r]+/g, ' ')
-      }[/color]${suffix}\n${prefix}${
-        translate(
-          `${inner}`,
-          ctx,
-          ['headings', 'punctuation']
-        )
-        .replace(/[\n\r]+/g, ' ')
-      }${suffix}\n\n`
+    const ans = `${prefix}[color=Silver]${usingSilver(inner).replace(
+      /[\n\r]+/g,
+      ' '
+    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+      'headings',
+      'punctuation',
+    ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
 
     return ans
   },
@@ -320,14 +319,13 @@ export const converters = {
     const suffix = '[/b][/size]'
     const rawInner = await converters.recurse(ele, ctx)
     const inner = makeUppercaseHeader(rawInner)
-    const ans = `\n${prefix}[color=Silver]${usingSilver(inner)
-      .replace(/[\n\r]+/g, ' ')
-      }[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
-      ctx,
-      ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')
-    }${suffix}\n\n`
+    const ans = `\n${prefix}[color=Silver]${usingSilver(inner).replace(
+      /[\n\r]+/g,
+      ' '
+    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+      'headings',
+      'punctuation',
+    ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
 
     return ans
   },
@@ -336,14 +334,13 @@ export const converters = {
     const suffix = '[/b][/size]'
     const rawInner = await converters.recurse(ele, ctx)
     const inner = makeUppercaseHeader(rawInner)
-    const ans = `\n${prefix}[color=Silver]${usingSilver(inner)
-      .replace(/[\n\r]+/g, ' ')
-      }[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
-      ctx,
-      ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')
-    }${suffix}\n\n`
+    const ans = `\n${prefix}[color=Silver]${usingSilver(inner).replace(
+      /[\n\r]+/g,
+      ' '
+    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+      'headings',
+      'punctuation',
+    ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
 
     return ans
   },
@@ -352,14 +349,13 @@ export const converters = {
     const suffix = '[/b][/size]'
     const rawInner = await converters.recurse(ele, ctx)
     const inner = makeUppercaseHeader(rawInner)
-    const ans = `\n${prefix}[color=Silver]${usingSilver(inner)
-      .replace(/[\n\r]+/g, ' ')
-      }[/color]${suffix}\n${prefix}${translate(
-      `${inner}`,
-      ctx,
-      ['headings', 'punctuation']
-    ).replace(/[\n\r]+/g, ' ')
-    }${suffix}\n\n`
+    const ans = `\n${prefix}[color=Silver]${usingSilver(inner).replace(
+      /[\n\r]+/g,
+      ' '
+    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+      'headings',
+      'punctuation',
+    ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
 
     return ans
   },
@@ -403,41 +399,55 @@ export const converters = {
     return ans
   },
   li: async (ele: HTMLElement, ctx: Context) => {
-
     let ans: string
 
     let nestedList = false
-    for (const child of ele.childNodes){
-      if (child.nodeName === 'OL' || child.nodeName === 'UL'){
+    for (const child of ele.childNodes) {
+      if (child.nodeName === 'OL' || child.nodeName === 'UL') {
         nestedList = true
       }
     }
-    
+
     if (nestedList) {
       // Nested lists.
       let theParagragh = ''
       let theList = ''
       let addingList = false
-      for (var i = 0; i < ele.childNodes.length - 1; i++){
+      for (var i = 0; i < ele.childNodes.length - 1; i++) {
         let nodeName = ele.childNodes[i].nodeName
-        if (nodeName === 'OL' || nodeName === 'UL'){
+        if (nodeName === 'OL' || nodeName === 'UL') {
           addingList = true
-        } 
-        if (!addingList){
-          const paragraghNode = await converters.convert(ele.childNodes[i], { ...ctx, inList: true });
-          theParagragh = `${theParagragh}${paragraghNode}`
         }
-        else{
-          const listNode = await converters.convert(ele.childNodes[i], { ...ctx, inList: true });
+        if (!addingList) {
+          const paragraghNode = await converters.convert(ele.childNodes[i], {
+            ...ctx,
+            inList: true,
+          })
+          theParagragh = `${theParagragh}${paragraghNode}`
+        } else {
+          const listNode = await converters.convert(ele.childNodes[i], {
+            ...ctx,
+            inList: true,
+          })
           theList = `${theList}${listNode}`
         }
       }
-      ans = `[*][color=Silver]${usingSilver(theParagragh)}[/color]\n[*]${translate(translateBugs(theParagragh, ctx), ctx, 'code')}\n${theList}`
+      ans = `[*][color=Silver]${usingSilver(
+        theParagragh
+      )}[/color]\n[*]${translate(
+        translateBugs(theParagragh, ctx),
+        ctx,
+        'code'
+      )}\n${theList}`
     } else if (isBlocklisted(ele.textContent!)) {
       return ''
     } else {
       const inner = await converters.recurse(ele, { ...ctx, inList: true })
-      ans = `[*][color=Silver]${usingSilver(inner)}[/color]\n[*]${translate(translateBugs(inner, ctx), ctx, 'code')}\n`
+      ans = `[*][color=Silver]${usingSilver(inner)}[/color]\n[*]${translate(
+        translateBugs(inner, ctx),
+        ctx,
+        'code'
+      )}\n`
     }
 
     return ans
@@ -456,21 +466,30 @@ export const converters = {
     if (ele.classList.contains('lead')) {
       ans = `[size=4][b][size=2][color=Silver]${inner}[/color][/size][/b][/size]\n[size=4][b]${translate(
         inner,
-        ctx, 'headings'
+        ctx,
+        'headings'
       )}[/b][/size]\n\n`
-    } else if (ele.querySelector('strong') !== null && ele.querySelector('strong')!.textContent === 'Posted:') {
+    } else if (
+      ele.querySelector('strong') !== null &&
+      ele.querySelector('strong')!.textContent === 'Posted:'
+    ) {
       return ''
     } else if (isBlocklisted(ele.textContent!)) {
       return ''
     } else if (ele.innerHTML === '&nbsp;') {
       return '\n'
-    } else if (/\s{0,}/.test(ele.textContent!) && ele.querySelectorAll('img').length === 1) {
+    } else if (
+      /\s{0,}/.test(ele.textContent!) &&
+      ele.querySelectorAll('img').length === 1
+    ) {
       return inner
     } else {
       if (ctx.inList) {
         ans = inner
       } else {
-        ans = `[size=2][color=Silver]${usingSilver(inner)}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
+        ans = `[size=2][color=Silver]${usingSilver(
+          inner
+        )}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
       }
     }
 
@@ -481,7 +500,7 @@ export const converters = {
     return ans
   },
   pre: async (ele: HTMLElement, ctx: Context) => {
-    const ans = await converters.recurse(ele, {...ctx, multiLineCode: true,})
+    const ans = await converters.recurse(ele, { ...ctx, multiLineCode: true })
     return ans
   },
   span: async (ele: HTMLElement, ctx: Context) => {
@@ -501,7 +520,10 @@ export const converters = {
       const prefix = '[s]'
       const suffix = '[/s]'
       return `${prefix}${ans}${suffix}`
-    } else if (ele.childElementCount === 1 && ele.firstElementChild!.nodeName === 'IMG') {
+    } else if (
+      ele.childElementCount === 1 &&
+      ele.firstElementChild!.nodeName === 'IMG'
+    ) {
       // Image.
       const img = ele.firstElementChild! as HTMLImageElement
       return await converters.img(img)
@@ -553,12 +575,14 @@ export function resolveUrl(url: string) {
   }
 }
 
-export function usingSilver(text: string){
-  return text.replace(/#388d40/g,'Silver').replace(/#7824c5/g,'Silver')
+export function usingSilver(text: string) {
+  return text.replace(/#388d40/g, 'Silver').replace(/#7824c5/g, 'Silver')
 }
 
-export function makeUppercaseHeader(header: string){
-  let inner = header.replace(/\][a-zA-Z0-9_]+\[/g, function(v) { return v.toUpperCase(); })
+export function makeUppercaseHeader(header: string) {
+  let inner = header.replace(/\][a-zA-Z0-9_]+\[/g, function (v) {
+    return v.toUpperCase()
+  })
   if (inner === header) inner = inner.toUpperCase()
   return inner
 }
@@ -570,7 +594,7 @@ export async function getBugs(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
     GM_xmlhttpRequest({
       method: 'GET',
-      url: BugsCenter,
+      url: bugsCenter,
       fetch: true,
       nocache: true,
       timeout: 7_000,
@@ -589,8 +613,10 @@ export async function getBugs(): Promise<ResolvedBugs> {
 }
 
 function markdownToBbcode(value: string): string {
-	return value
-		.replace(/`([^`]+)`/g, '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]$1[/font][/color][/backcolor]')
+  return value.replace(
+    /`([^`]+)`/g,
+    '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]$1[/font][/color][/backcolor]'
+  )
 }
 
 /**
@@ -630,5 +656,11 @@ function isBlocklisted(text: string): boolean {
     'Minecraft Preview is available on Xbox, Windows 10/11, and iOS devices. More information can be found at aka.ms/PreviewFAQ',
     'The beta is available on Xbox, Windows 10/11, and Android (Google Play). To join or leave the beta, see aka.ms/JoinMCBeta for detailed instructions',
   ]
-  return blocklist.some((block) => text.replace(/\u202f/g, ' ').trim().trim().includes(block))
+  return blocklist.some((block) =>
+    text
+      .replace(/\u202f/g, ' ')
+      .trim()
+      .trim()
+      .includes(block)
+  )
 }
