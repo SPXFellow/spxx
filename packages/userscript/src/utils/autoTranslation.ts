@@ -77,13 +77,13 @@ const translators = {
     return translator(input, ctx, [
       // Creative Commons image credits
       [/Image credit:/gi, '图片来源：'],
-      [/CC BY:/gi, '知识共享 署名'],
-      [/CC BY-NC:/gi, '知识共享 署名-非商业性使用'],
-      [/CC BY-ND:/gi, '知识共享 署名-禁止演绎'],
-      [/CC BY-SA:/gi, '知识共享 署名-相同方式共享'],
-      [/CC BY-NC-ND:/gi, '知识共享 署名-非商业性使用-禁止演绎'],
-      [/CC BY-NC-SA:/gi, '知识共享 署名-非商业性使用-相同方式共享'],
-      [/Public Domain:/gi, '公有领域'],
+      [/CC BY-NC-ND/gi, '知识共享 署名-非商业性使用-禁止演绎'],
+      [/CC BY-NC-SA/gi, '知识共享 署名-非商业性使用-相同方式共享'],
+      [/CC BY-NC/gi, '知识共享 署名-非商业性使用'],
+      [/CC BY-ND/gi, '知识共享 署名-禁止演绎'],
+      [/CC BY-SA/gi, '知识共享 署名-相同方式共享'],
+      [/CC BY/gi, '知识共享 署名'],
+      [/Public Domain/gi, '公有领域'],
     ])
   },
   punctuation: (input: string, ctx: Context) => {

@@ -489,7 +489,7 @@ export const converters = {
       } else {
         ans = `[size=2][color=Silver]${usingSilver(
           inner
-        )}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
+        )}[/color][/size]\n${translate(inner, ctx, ['punctuation', 'imgCredits',])}\n\n`
       }
     }
 
