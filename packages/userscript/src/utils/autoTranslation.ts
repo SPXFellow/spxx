@@ -43,7 +43,7 @@ const translators = {
       [/Commands/gi, '命令'],
       [/Known Issues/gi, '已知问题'],
       [/Technical Updates/gi, '技术性更新'],
-      [/Vanilla Parity/gi, '待同步特性'],
+      [/Vanilla Parity/gi, '特性同步'],
       [/Character Creator/gi, '角色创建器'],
       [/Components/gi, '组件'],
       [/General/gi, '通用'],
@@ -77,13 +77,13 @@ const translators = {
     return translator(input, ctx, [
       // Creative Commons image credits
       [/Image credit:/gi, '图片来源：'],
-      [/CC BY:/gi, '知识共享 署名'],
-      [/CC BY-NC:/gi, '知识共享 署名-非商业性使用'],
-      [/CC BY-ND:/gi, '知识共享 署名-禁止演绎'],
-      [/CC BY-SA:/gi, '知识共享 署名-相同方式共享'],
-      [/CC BY-NC-ND:/gi, '知识共享 署名-非商业性使用-禁止演绎'],
-      [/CC BY-NC-SA:/gi, '知识共享 署名-非商业性使用-相同方式共享'],
-      [/Public Domain:/gi, '公有领域'],
+      [/CC BY-NC-ND/gi, '知识共享 署名-非商业性使用-禁止演绎'],
+      [/CC BY-NC-SA/gi, '知识共享 署名-非商业性使用-相同方式共享'],
+      [/CC BY-NC/gi, '知识共享 署名-非商业性使用'],
+      [/CC BY-ND/gi, '知识共享 署名-禁止演绎'],
+      [/CC BY-SA/gi, '知识共享 署名-相同方式共享'],
+      [/CC BY/gi, '知识共享 署名'],
+      [/Public Domain/gi, '公有领域'],
     ])
   },
   punctuation: (input: string, ctx: Context) => {

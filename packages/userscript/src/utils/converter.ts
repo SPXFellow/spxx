@@ -1,6 +1,6 @@
 import { Context, ResolvedBugs } from '../types'
 import translate from './autoTranslation'
-import { bugsCenter, spxxVersion } from './consts'
+import { bugsCenter, bugsTranslatorsTable, spxxVersion, translatorColorTable } from './consts'
 
 export const converters = {
   /**
@@ -489,7 +489,7 @@ export const converters = {
       } else {
         ans = `[size=2][color=Silver]${usingSilver(
           inner
-        )}[/color][/size]\n${translate(inner, ctx, 'punctuation')}\n\n`
+        )}[/color][/size]\n${translate(inner, ctx, ['punctuation', 'imgCredits',])}\n\n`
       }
     }
 
@@ -612,6 +612,50 @@ export async function getBugs(): Promise<ResolvedBugs> {
   })
 }
 
+export async function getBugsTranslators(): Promise<ResolvedBugs> {
+  return new Promise((rs, rj) => {
+    GM_xmlhttpRequest({
+      method: 'GET',
+      url: bugsTranslatorsTable,
+      fetch: true,
+      nocache: true,
+      timeout: 7_000,
+      onload: (r) => {
+        try {
+          rs(JSON.parse(r.responseText))
+        } catch (e) {
+          rj(e)
+        }
+      },
+      onabort: () => rj(new Error('Aborted')),
+      onerror: (e) => rj(e),
+      ontimeout: () => rj(new Error('Time out')),
+    })
+  })
+}
+
+export async function getTranslatorColor(): Promise<ResolvedBugs> {
+  return new Promise((rs, rj) => {
+    GM_xmlhttpRequest({
+      method: 'GET',
+      url: translatorColorTable,
+      fetch: true,
+      nocache: true,
+      timeout: 7_000,
+      onload: (r) => {
+        try {
+          rs(JSON.parse(r.responseText))
+        } catch (e) {
+          rj(e)
+        }
+      },
+      onabort: () => rj(new Error('Aborted')),
+      onerror: (e) => rj(e),
+      ontimeout: () => rj(new Error('Time out')),
+    })
+  })
+}
+
 function markdownToBbcode(value: string): string {
   return value.replace(
     /`([^`]+)`/g,
@@ -626,9 +670,17 @@ function translateBugs(str: string, ctx: Context): string {
   if (str.startsWith('[url=https://bugs.mojang.com/browse/MC-')) {
     const id = str.slice(36, str.indexOf(']'))
     const data = ctx.bugs[id]
+    
     if (data) {
+      let bugColor = "#388d40"
+      if (ctx.bugsTranslators[id]){
+        const bugTranslator = ctx.bugsTranslators[id]
+        if (ctx.translatorColor[bugTranslator]) {
+          bugColor = ctx.translatorColor[bugTranslator]
+        }
+      }
       const bbcode = markdownToBbcode(data)
-      return `[url=https://bugs.mojang.com/browse/${id}][b][color=#388d40]${id}[/color][/b][/url]- ${bbcode}`
+      return `[url=https://bugs.mojang.com/browse/${id}][b][color=${bugColor}]${id}[/color][/b][/url]- ${bbcode}`
     } else {
       return str
     }
@@ -641,7 +693,7 @@ function translateBugs(str: string, ctx: Context): string {
  * Determine if we should use album, depending on image count.
  */
 function shouldUseAlbum(slides: [string, string][]) {
-  const enableAlbum = true
+  const enableAlbum = false
   return enableAlbum
     ? slides.length > 1
     : // eslint-disable-next-line @typescript-eslint/no-unused-vars

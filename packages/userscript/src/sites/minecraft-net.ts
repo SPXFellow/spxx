@@ -1,7 +1,7 @@
 import config from '../config'
-import { Context, ResolvedBugs } from '../types'
+import { ColorMap, Context, ResolvedBugs, Translator } from '../types'
 import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
-import { getBugs, resolveUrl, converters } from '../utils/converter'
+import { getBugs, resolveUrl, converters, getBugsTranslators, getTranslatorColor } from '../utils/converter'
 
 export async function minecraftNet() {
   const url = document.location.toString()
@@ -51,10 +51,28 @@ async function convertMCArticleToBBCode(
     console.error('[convertMCArticleToBBCode#getBugs]', e)
   }
 
+  let bugsTranslators: Translator
+  try {
+    bugsTranslators = await getBugsTranslators()
+  } catch (e) {
+    bugsTranslators = {}
+    console.error('[convertMCArticleToBBCode#getBugs]', e)
+  }
+
+  let translatorColor: ColorMap
+  try {
+    translatorColor = await getTranslatorColor()
+  } catch (e) {
+    translatorColor = {}
+    console.error('[convertMCArticleToBBCode#getBugs]', e)
+  }
+
   const beginning = getBeginning(articleType, versionType)
   const heroImage = getHeroImage(html, articleType)
   const content = await getContent(html, {
     bugs,
+    bugsTranslators,
+    translatorColor,
     title: html.title.split(' | ').slice(0, -1).join(' | '),
     date: null,
     translator,
