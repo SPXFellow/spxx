@@ -588,7 +588,7 @@ export function usingSilver(text: string) {
 }
 
 export function makeUppercaseHeader(header: string) {
-  let inner = header.replace(/\][a-zA-Z0-9_]+\[/g, function (v) {
+  let inner = header.replace(/\]((?![\]\[]).)+\[/g, function (v) {
     return v.toUpperCase()
   })
   if (inner === header) inner = inner.toUpperCase()
