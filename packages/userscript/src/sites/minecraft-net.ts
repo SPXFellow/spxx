@@ -1,7 +1,13 @@
 import config from '../config'
 import { ColorMap, Context, ResolvedBugs, Translator } from '../types'
 import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
-import { getBugs, resolveUrl, converters, getBugsTranslators, getTranslatorColor } from '../utils/converter'
+import {
+  getBugs,
+  resolveUrl,
+  converters,
+  getBugsTranslators,
+  getTranslatorColor,
+} from '../utils/converter'
 
 export async function minecraftNet() {
   const url = document.location.toString()
@@ -183,15 +189,14 @@ async function getContent(html: Document, ctx: Context) {
   }
   if (index !== -1) {
     ans = ans.slice(0, index)
+
+    // Add back 【SPXX】
+    const attribution = await converters.recurse(
+      document.querySelector('.attribution'),
+      ctx
+    )
+    ans = `${ans}${attribution}`
   }
-
-  // Add back 【SPXX】
-  const attribution = await converters.recurse(
-    document.querySelector('.attribution'),
-    ctx
-  )
-  ans = `${ans}${attribution}`
-
   // Add spaces between texts and '[x'.
   ans = ans.replace(/([a-zA-Z0-9\-._])(\[[A-Za-z])/g, '$1 $2')
   // Add spaces between '[/x]' and texts.
