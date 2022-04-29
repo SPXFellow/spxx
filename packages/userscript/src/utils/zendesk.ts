@@ -58,13 +58,13 @@ ${translateMachinely(
   `[size=6][b]${title}[/b][/size]`,
   ctx,
   'headings'
-)}[/align]\n\n${content}[/indent][/indent]\n
+)}[/align]\n\n[indent][indent]${content}\n
 [b]【${ctx.translator} 译自[url=${ctx.url}][color=#388d40][u]${
     ctx.url.match(/https:\/\/(.*?)\//)[1]
   } ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
   }[/u][/color][/url]】[/b]
-【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】\n\n${ending}`
+【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】[/indent][/indent]\n\n${ending}`
 
   return ans
 }
