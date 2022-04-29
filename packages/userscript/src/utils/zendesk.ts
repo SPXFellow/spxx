@@ -41,7 +41,7 @@ async function convertZendeskArticleToBBCode(
   versionType: VersionType | null
 ) {
   const title = html.title.slice(0, html.title.lastIndexOf(titleSlice))
-  const ctx = {
+  const ctx: Context = {
     bugs: {},
     title: title,
     date: null,

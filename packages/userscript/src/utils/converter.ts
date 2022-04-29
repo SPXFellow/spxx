@@ -1,6 +1,11 @@
 import { Context, ResolvedBugs } from '../types'
 import translate from './autoTranslation'
-import { bugsCenter, bugsTranslatorsTable, spxxVersion, translatorColorTable } from './consts'
+import {
+  bugsCenter,
+  bugsTranslatorsTable,
+  spxxVersion,
+  translatorColorTable,
+} from './consts'
 
 export const converters = {
   /**
@@ -489,7 +494,10 @@ export const converters = {
       } else {
         ans = `[size=2][color=Silver]${usingSilver(
           inner
-        )}[/color][/size]\n${translate(inner, ctx, ['punctuation', 'imgCredits',])}\n\n`
+        )}[/color][/size]\n${translate(inner, ctx, [
+          'punctuation',
+          'imgCredits',
+        ])}\n\n`
       }
     }
 
@@ -667,13 +675,16 @@ function markdownToBbcode(value: string): string {
  * Replace untranslated bugs.
  */
 function translateBugs(str: string, ctx: Context): string {
-  if (str.startsWith('[url=https://bugs.mojang.com/browse/MC-')) {
+  if (
+    str.startsWith('[url=https://bugs.mojang.com/browse/MC-') &&
+    ctx.bugs != null // nullish
+  ) {
     const id = str.slice(36, str.indexOf(']'))
     const data = ctx.bugs[id]
-    
+
     if (data) {
-      let bugColor = "#388d40"
-      if (ctx.bugsTranslators[id]){
+      let bugColor = '#388d40'
+      if (ctx.bugsTranslators[id]) {
         const bugTranslator = ctx.bugsTranslators[id]
         if (ctx.translatorColor[bugTranslator]) {
           bugColor = ctx.translatorColor[bugTranslator]

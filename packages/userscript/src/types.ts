@@ -1,8 +1,8 @@
 export interface Context {
   author?: string
-  bugs: ResolvedBugs
-  bugsTranslators: Translator
-  translatorColor: ColorMap
+  bugs?: ResolvedBugs
+  bugsTranslators?: Translator
+  translatorColor?: ColorMap
   disablePunctuationConverter?: boolean
   multiLineCode?: boolean
   inList?: boolean
