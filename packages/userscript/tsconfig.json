@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
     "outDir": ".",
     "rootDir": ".",
     "resolveJsonModule": true,
