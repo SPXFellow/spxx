@@ -704,11 +704,12 @@ function translateBugs(str: string, ctx: Context): string {
  * Determine if we should use album, depending on image count.
  */
 function shouldUseAlbum(slides: [string, string][]) {
-  const enableAlbum = false
+  const enableAlbum = true
   return enableAlbum
-    ? slides.length > 1
-    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      slides.every(([_, caption]) => caption === ' ')
+    ? slides.length > 1 && slides.every(([_, caption]) => caption === ' ') // do not use album if there is any caption 
+    : false
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //  slides.every(([_, caption]) => caption === ' ')
 }
 
 function isBlocklisted(text: string): boolean {
