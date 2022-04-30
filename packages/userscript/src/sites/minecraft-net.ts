@@ -19,10 +19,8 @@ export async function minecraftNet() {
 
     const button = document.createElement('button')
     button.classList.add(
-      'minecraft-main-button',
-      'button-green',
-      'btn',
-      'btn-xs',
+      'mc-button__primary',
+      'mc-button__green-s1',
       'spxx-userscript-ignored'
     )
     button.innerText = 'Copy BBCode'
