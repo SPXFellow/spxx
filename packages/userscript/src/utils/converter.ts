@@ -159,7 +159,7 @@ export const converters = {
   code: async (ele: HTMLElement, ctx: Context) => {
     const prefix = ctx.multiLineCode
       ? '[code]'
-      : '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
+      : '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace]'
     const suffix = ctx.multiLineCode ? '[/code]' : '[/font][/color][/backcolor]'
 
     const ans = `${prefix}${await converters.recurse(ele, {
@@ -517,7 +517,7 @@ export const converters = {
     if (ele.classList.contains('bedrock-server')) {
       // Inline code.
       const prefix =
-        '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]'
+        '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace]'
       const suffix = '[/font][/color][/backcolor]'
       return `${prefix}${await converters.recurse(ele, {
         ...ctx,
@@ -667,7 +667,7 @@ export async function getTranslatorColor(): Promise<ResolvedBugs> {
 function markdownToBbcode(value: string): string {
   return value.replace(
     /`([^`]+)`/g,
-    '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace]$1[/font][/color][/backcolor]'
+    '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace]$1[/font][/color][/backcolor]'
   )
 }
 
