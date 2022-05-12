@@ -3,7 +3,7 @@
  * This needs continuous updates according to https://www.mcbbs.net/thread-1253320-1-1.html#pid23311399.
  */
 
- import { spxxVersion } from './consts'
+import { spxxVersion } from './consts'
 
 export function getBeginning(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
@@ -96,12 +96,12 @@ export function getBeginning(articleType: string, type: VersionType) {
 }
 
 export function getEnding(articleType: string, type: VersionType) {
+  const poweredBy = `[align=center][size=1][color=Silver]Powered by SPXX ${spxxVersion} with love[/color][/size][/align]`
   if (articleType.toLowerCase() !== 'news') {
-    return ''
+    return `\n${poweredBy}`
   }
   const feedbackSite = `[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于Java版）[/color][/url]`
   const feedbackBE = `[url=https://aka.ms/JavaSnapshotFeedback?ref=minecraftnet][color=Sienna]官方反馈网站（仅限英文，适用于基岩版）[/color][/url]`
-  const poweredBy = `[align=center][size=1][color=Silver]Powered by SPXX ${spxxVersion} with love[/color][/size][/align]`
   switch (type) {
     case VersionType.Snapshot:
       return `\n[*][url=https://www.minecraft.net/zh-hans/download/][color=Sienna]正版启动器下载地址[/color][/url]
