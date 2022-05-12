@@ -1,23 +1,22 @@
 {
-	"name": "spxx-monorepo",
-	"version": "0.0.1",
-	"description": "Monorepo of the new and rewritten version of spx, the ultimate MCBBS newslord utility.",
-	"type": "module",
-	"repository": "https://github.com/SPXFellow/spxx.git",
-	"bugs": "https://github.com/SPXFellow/spx/issues",
-	"homepage": "https://github.com/SPXFellow/spx#readme",
-	"author": "SPXFellow",
-	"license": "CC0-1.0",
-	"devDependencies": {
-		"@typescript-eslint/parser": "^5.21.0",
-		"eslint": "^8.14.0",
-		"lerna": "^4.0.0",
-		"prettier": "^2.6.2",
-		"typescript": "^4.6.4"
-	},
-	"private": true,
-	"workspaces": [
-		"packages/*"
-	],
-	"packageManager": "yarn@3.1.1"
+  "name": "spxx-monorepo",
+  "version": "0.0.1",
+  "description": "Monorepo of the new and rewritten version of spx, the ultimate MCBBS newslord utility.",
+  "type": "module",
+  "repository": "https://github.com/SPXFellow/spxx.git",
+  "bugs": "https://github.com/SPXFellow/spx/issues",
+  "homepage": "https://github.com/SPXFellow/spx#readme",
+  "author": "SPXFellow",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.4"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "packageManager": "yarn@3.2.0"
 }
