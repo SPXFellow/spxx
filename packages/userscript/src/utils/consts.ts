@@ -1,13 +1,10 @@
 import * as packageJson from '../../package.json'
+import config from '../config'
 
-export const bugsCenter =
-  'https://raw.githubusercontent.com/SPXFellow/spxx-translation-database/crowdin/zh-CN/zh_CN.json'
+export const bugsCenter = config.bugCenter.translation
 
-export const bugsTranslatorsTable = 
-  'https://raw.githubusercontent.com/SPXFellow/spxx-translation-database/master/translator.json'
+export const bugsTranslatorsTable = config.bugCenter.translator
 
-export const translatorColorTable = 
-  'https://raw.githubusercontent.com/SPXFellow/spxx-translation-database/master/color.json'
+export const translatorColorTable = config.bugCenter.color
 
 export const spxxVersion = packageJson.version
-

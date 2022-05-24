@@ -418,7 +418,7 @@ export const converters = {
       let theParagragh = ''
       let theList = ''
       let addingList = false
-      for (var i = 0; i < ele.childNodes.length - 1; i++) {
+      for (let i = 0; i < ele.childNodes.length - 1; i++) {
         let nodeName = ele.childNodes[i].nodeName
         if (nodeName === 'OL' || nodeName === 'UL') {
           addingList = true
@@ -706,10 +706,10 @@ function translateBugs(str: string, ctx: Context): string {
 function shouldUseAlbum(slides: [string, string][]) {
   const enableAlbum = true
   return enableAlbum
-    ? slides.length > 1 && slides.every(([_, caption]) => caption === ' ') // do not use album if there is any caption 
+    ? slides.length > 1 && slides.every(([_, caption]) => caption === ' ') // do not use album if there is any caption
     : false
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    //  slides.every(([_, caption]) => caption === ' ')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //  slides.every(([_, caption]) => caption === ' ')
 }
 
 function isBlocklisted(text: string): boolean {
