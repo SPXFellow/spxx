@@ -4,7 +4,9 @@
   "connect": [
     "feedback.minecraft.com",
     "help.minecraft.net",
-    "raw.githubusercontent.com"
+    "raw.githubusercontent.com",
+    "bugs.guangyaostore.com",
+    "spxx.bugjump.net"
   ],
   "namespace": "npmjs.com/package/@spxx/userscript",
   "description": "Minecraft.net blog article to BBCode converter, rewritten",

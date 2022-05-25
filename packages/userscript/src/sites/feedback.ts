@@ -1,5 +1,5 @@
 import { VersionType } from '../utils/articleTemplate'
-import fireZendesk from '../utils/zendesk'
+import getZendesk from '../utils/zendesk'
 
 export function feedback() {
   let versionType = VersionType.Normal
@@ -13,7 +13,7 @@ export function feedback() {
     versionType = VersionType.BedrockRelease
   }
 
-  fireZendesk(
+  getZendesk(
     (button: HTMLElement) => {
       document.querySelector('.topNavbar nav')!.append(button)
     },

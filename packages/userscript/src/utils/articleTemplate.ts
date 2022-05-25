@@ -96,7 +96,26 @@ export function getHeader(articleType: string, type: VersionType) {
 }
 
 export function getFooter(articleType: string, type: VersionType) {
-  const poweredBy = `[align=center][size=1][color=Silver]Powered by SPXX ${spxxVersion} with love[/color][/size][/align]`
+  const time = new Date() // why javacript why
+
+  function padTime(time: number) {
+    return time.toString().padStart(2, '0')
+  }
+
+  function toHoursAndMinutes(totalMinutes: number) {
+    const m = Math.abs(totalMinutes)
+    const minutes = m % 60
+    const hours = Math.floor(m / 60)
+
+    return `${totalMinutes < 0 ? '+' : '-'}${padTime(hours)}${padTime(minutes)}`
+  }
+
+  const poweredBy = `[align=center][size=1][color=Silver]Powered by SPXX ${spxxVersion} with love
+Converted at ${time.getFullYear()}-${
+    padTime(time.getMonth() + 1) // why +1 javascript
+  }-${padTime(time.getDate())} ${padTime(time.getHours())}:${padTime(
+    time.getMinutes()
+  )} ${toHoursAndMinutes(time.getTimezoneOffset())}[/color][/size][/align]`
   if (articleType.toLowerCase() !== 'news') {
     return `\n${poweredBy}`
   }

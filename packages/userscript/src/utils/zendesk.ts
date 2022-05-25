@@ -5,7 +5,7 @@ import translateMachinely from '../utils/autoTranslation'
 import config from '../config'
 import { spxxVersion } from './consts'
 
-export default function fireZendesk(
+export default function getZendesk(
   controlDOM: Function,
   titleSlice: string,
   contentClass: string,
