@@ -1,6 +1,6 @@
 import config from '../config'
 import { ColorMap, Context, ResolvedBugs, Translator } from '../types'
-import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
+import { VersionType, getHeader, getFooter } from '../utils/articleTemplate'
 import {
   getBugs,
   resolveUrl,
@@ -71,7 +71,7 @@ async function convertMCArticleToBBCode(
     console.error('[convertMCArticleToBBCode#getBugs]', e)
   }
 
-  const beginning = getBeginning(articleType, versionType)
+  const header = getHeader(articleType, versionType)
   const heroImage = getHeroImage(html, articleType)
   const content = await getContent(html, {
     bugs,
@@ -82,9 +82,9 @@ async function convertMCArticleToBBCode(
     translator,
     url: articleUrl,
   })
-  const ending = getEnding(articleType, versionType)
+  const footer = getFooter(articleType, versionType)
 
-  const ans = `${beginning}${heroImage}${content}[/indent][/indent]${ending}`
+  const ans = `${header}${heroImage}${content}[/indent][/indent]${footer}`
 
   return ans
 }

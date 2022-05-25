@@ -1,11 +1,11 @@
 /**
- * Just a simple file to get the beginning and ending of an article.
+ * Just a simple file to get the header and footer of an article.
  * This needs continuous updates according to https://www.mcbbs.net/thread-1253320-1-1.html#pid23311399.
  */
 
 import { spxxVersion } from './consts'
 
-export function getBeginning(articleType: string, type: VersionType) {
+export function getHeader(articleType: string, type: VersionType) {
   if (articleType.toLowerCase() !== 'news') {
     return ''
   }
@@ -95,7 +95,7 @@ export function getBeginning(articleType: string, type: VersionType) {
   }
 }
 
-export function getEnding(articleType: string, type: VersionType) {
+export function getFooter(articleType: string, type: VersionType) {
   const poweredBy = `[align=center][size=1][color=Silver]Powered by SPXX ${spxxVersion} with love[/color][/size][/align]`
   if (articleType.toLowerCase() !== 'news') {
     return `\n${poweredBy}`

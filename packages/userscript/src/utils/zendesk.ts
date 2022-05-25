@@ -1,4 +1,4 @@
-import { VersionType, getBeginning, getEnding } from '../utils/beginningEnding'
+import { VersionType, getHeader, getFooter } from '../utils/articleTemplate'
 import { converters } from '../utils/converter'
 import { Context } from '../types'
 import translateMachinely from '../utils/autoTranslation'
@@ -50,10 +50,10 @@ async function convertZendeskArticleToBBCode(
   }
   const content = await getZendeskContent(html, ctx, contentClass)
   const posted = await getZendeskDate(location.href)
-  const beginning = versionType ? getBeginning('news', versionType) : ''
-  const ending = versionType ? getEnding('news', versionType) : ''
+  const header = versionType ? getHeader('news', versionType) : ''
+  const footer = versionType ? getFooter('news', versionType) : ''
 
-  const ans = `[postbg]bg3.png[/postbg]${beginning}[align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
+  const ans = `[postbg]bg3.png[/postbg]${header}[align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
 ${translateMachinely(
   `[size=6][b]${title}[/b][/size]`,
   ctx,
@@ -64,7 +64,7 @@ ${translateMachinely(
   } ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
   }[/u][/color][/url]】[/b]
-【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】[/indent][/indent]\n\n${ending}`
+【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】[/indent][/indent]\n\n${footer}`
 
   return ans
 }

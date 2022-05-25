@@ -225,10 +225,7 @@ export const converters = {
           .join('\n')}${suffix}`
       } else if (slides.length > 0) {
         ans = `[/indent][/indent][align=center]${slides
-          .map(
-            ([url, caption]) =>
-              `[img]${url}[/img]\n${caption}`
-          )
+          .map(([url, caption]) => `[img]${url}[/img]\n${caption}`)
           .join('\n')}[/align][indent][indent]\n`
       } else {
         ans = ''
@@ -262,7 +259,7 @@ export const converters = {
     return ''
   },
   dl: async (ele: HTMLElement, ctx: Context) => {
-    // The final <dd> after converted will contains an ending comma '，'
+    // The final <dd> after converted will contains an footer comma '，'
     // So I don't add any comma before '译者'.
     const ans = `\n\n${await converters.recurse(
       ele,
