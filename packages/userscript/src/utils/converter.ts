@@ -224,10 +224,10 @@ export const converters = {
           .map(([url, caption]) => `[aimg=${url}]${caption}[/aimg]`)
           .join('\n')}${suffix}`
       } else if (slides.length > 0) {
-        ans = `${slides
+        ans = `[/indent][/indent][align=center]${slides
           .map(
             ([url, caption]) =>
-              `[/indent][/indent][align=center][img]${url}[/img]\n${caption}`
+              `[img]${url}[/img]\n${caption}`
           )
           .join('\n')}[/align][indent][indent]\n`
       } else {
