@@ -10,8 +10,8 @@
   ],
   "namespace": "npmjs.com/package/@spxx/userscript",
   "description": "Minecraft.net blog article to BBCode converter, rewritten",
-  "downloadURL": "https://cdn.jsdelivr.net/npm/@spxx/userscript/dist/bundle.user.js",
-  "updateURL": "https://cdn.jsdelivr.net/npm/@spxx/userscript/dist/bundle.user.js",
+  "downloadURL": "https://fastly.jsdelivr.net/npm/@spxx/userscript/dist/bundle.user.js",
+  "updateURL": "https://fastly.jsdelivr.net/npm/@spxx/userscript/dist/bundle.user.js",
   "homepage": "https://github.com/SPXFellow/spxx",
   "include": [
     "https://www.minecraft.net/en-us/article/*",
@@ -22,7 +22,7 @@
     "https://help.minecraft.net/hc/en-us/articles/*"
   ],
   "require": [
-    "https://cdn.jsdelivr.net/gh/sizzlemctwizzle/GM_config@master/gm_config.js"
+    "https://fastly.jsdelivr.net/gh/sizzlemctwizzle/GM_config@master/gm_config.js"
   ],
   "grant": [
     "GM_setClipboard",
