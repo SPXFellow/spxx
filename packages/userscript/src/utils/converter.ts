@@ -386,6 +386,7 @@ export const converters = {
 
     const prefix = w && h ? `[img=${w},${h}]` : '[img]'
     const imgUrl = resolveUrl(img.src)
+    if (imgUrl === '') return '' // in case of empty image
 
     let ans: string
     if (
@@ -585,11 +586,33 @@ export function usingSilver(text: string) {
 }
 
 export function makeUppercaseHeader(header: string) {
-  let inner = header.replace(/\]((?![\]\[]).)+\[/g, function (v) {
-    return v.toUpperCase()
-  })
-  if (inner === header) inner = inner.toUpperCase()
-  return inner
+  let retStr = ""
+  let idx = 0
+  let bracket = 0
+  for (let i = 0; i < header.length; i++){
+    if (header[i] == '[') {
+      if (bracket == 0) {
+        retStr = retStr.concat(header.substring(idx, i).toUpperCase());
+        idx = i;
+      }
+      bracket ++;
+    }
+    else if (header[i] == ']') {
+      if (bracket <= 1){
+        retStr = retStr.concat(header.substring(idx, i + 1));
+        idx = i + 1;
+      }
+      bracket = Math.max(0, bracket - 1);
+    }
+  }
+  if (bracket > 0){
+    console.error("bracket not closed!");
+    retStr = retStr.concat(header.substring(idx, header.length));
+  }
+  else {
+    retStr = retStr.concat(header.substring(idx, header.length).toUpperCase());
+  }
+  return retStr;
 }
 
 /**
