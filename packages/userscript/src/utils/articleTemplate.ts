@@ -62,7 +62,7 @@ export function getHeader(articleType: string, type: VersionType) {
       return `[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=46,48]https://ooo.0o0.ooo/2017/01/30/588f60bbaaf78.png[/img][/float][size=32px][b][color=#645944]Minecraft 基岩版[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
-[*][b]Minecraft 基岩版[/b]是指运行在移动平台（Android、iOS）、Windows 10、主机（Xbox One、Switch、PlayStation 4）上，使用「基岩引擎」（C++语言）开发的 Minecraft 版本。
+[*][b]Minecraft 基岩版[/b]是指运行在移动平台（Android、iOS）、Windows 10/11、主机（Xbox One、Switch、PlayStation 4）上，使用「基岩引擎」（C++语言）开发的 Minecraft 版本。
 [*][b]正式版[/b]包含所有特性且安全稳定，所有玩家都可以尽情畅享。
 [*]转载本贴时须要注明原作者以及本帖地址。[size=0px]本贴来自www.mcbbs.net[/size]
 [/list][/size][/td][/tr]
@@ -247,7 +247,7 @@ ${poweredBy}`
 [tr=#E3C99E][td][float=left][img=40,32]https://attachment.mcbbs.net/data/myattachment/common/d6/common_39_icon.png[/img][/float][size=24px][b][color=#645944] 如何游玩测试版？[/color][/b][/size][/td][/tr]
 [tr=#FDF6E5][td][size=16px][list]
 [*]请访问[url=https://www.minecraft.net/zh-hans/get-minecraft][color=Sienna]官方游戏获取地址[/color][/url]，根据您所使用的平台获取游戏。
-[*]基岩测试版/预览版仅限于 Windows 10、Android、iOS、Xbox One 平台。请根据[url=https://www.mcbbs.net/thread-1299939-1-1.html][color=Sienna]官方指引[/color][/url]启用/关闭测试版/预览版。
+[*]基岩测试版/预览版仅限于 Windows 10/11、Android、iOS、Xbox One 平台。请根据[url=https://www.mcbbs.net/thread-1299939-1-1.html][color=Sienna]官方指引[/color][/url]启用/关闭测试版/预览版。
 [*]在新建/编辑地图时，请滑动到「实验性游戏内容（Experiments）」，选取你想体验的实验性内容。
 [/list][/size][/td][/tr]
 [/table][/font][/align]
