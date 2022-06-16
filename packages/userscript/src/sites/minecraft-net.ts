@@ -152,7 +152,7 @@ async function getContent(html: Document, ctx: Context) {
 
   // Get the server URL if it exists.
   const serverUrls = ans.match(
-    /(https:\/\/launcher.mojang.com\/.+\/server.jar)/
+    /(https:\/\/piston-data.mojang.com\/.+\/server.jar)/
   )
   let serverUrl = ''
   if (serverUrls) {
