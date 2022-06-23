@@ -586,33 +586,31 @@ export function usingSilver(text: string) {
 }
 
 export function makeUppercaseHeader(header: string) {
-  let retStr = ""
+  let retStr = ''
   let idx = 0
   let bracket = 0
-  for (let i = 0; i < header.length; i++){
+  for (let i = 0; i < header.length; i++) {
     if (header[i] == '[') {
       if (bracket == 0) {
-        retStr = retStr.concat(header.substring(idx, i).toUpperCase());
-        idx = i;
+        retStr = retStr.concat(header.substring(idx, i).toUpperCase())
+        idx = i
       }
-      bracket ++;
-    }
-    else if (header[i] == ']') {
-      if (bracket <= 1){
-        retStr = retStr.concat(header.substring(idx, i + 1));
-        idx = i + 1;
+      bracket++
+    } else if (header[i] == ']') {
+      if (bracket <= 1) {
+        retStr = retStr.concat(header.substring(idx, i + 1))
+        idx = i + 1
       }
-      bracket = Math.max(0, bracket - 1);
+      bracket = Math.max(0, bracket - 1)
     }
   }
-  if (bracket > 0){
-    console.error("bracket not closed!");
-    retStr = retStr.concat(header.substring(idx, header.length));
+  if (bracket > 0) {
+    console.error('bracket not closed!')
+    retStr = retStr.concat(header.substring(idx, header.length))
+  } else {
+    retStr = retStr.concat(header.substring(idx, header.length).toUpperCase())
   }
-  else {
-    retStr = retStr.concat(header.substring(idx, header.length).toUpperCase());
-  }
-  return retStr;
+  return retStr
 }
 
 /**
@@ -738,13 +736,17 @@ function isBlocklisted(text: string): boolean {
     'While the version numbers between Preview and Beta are different, there is no difference in game content',
     'These work-in-progress versions can be unstable and may not be representative of final version quality',
     'Minecraft Preview is available on Xbox, Windows 10/11, and iOS devices. More information can be found at aka.ms/PreviewFAQ',
-    'The beta is available on Xbox, Windows 10/11, and Android (Google Play). To join or leave the beta, see aka.ms/JoinMCBeta for detailed instructions',
+    'The beta is available on Android (Google Play). To join or leave the beta, see aka.ms/JoinMCBeta for detailed instructions',
   ]
-  return blocklist.some((block) =>
-    text
-      .replace(/\u202f/g, ' ')
-      .trim()
-      .trim()
-      .includes(block)
-  )
+  return blocklist
+    .map((i) => {
+      return i.replace(/\p{General_Category=Space_Separator}*/, '')
+    })
+    .some((block) =>
+      text
+        .trim()
+        .trim()
+        .replace(/\p{General_Category=Space_Separator}*/, '')
+        .includes(block)
+    )
 }
