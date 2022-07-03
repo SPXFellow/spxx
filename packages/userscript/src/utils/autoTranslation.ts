@@ -43,7 +43,6 @@ const translators = {
       [/Commands/gi, '命令'],
       [/Known Issues/gi, '已知问题'],
       [/Technical Updates/gi, '技术性更新'],
-      [/Vanilla Parity/gi, '特性同步'],
       [/Character Creator/gi, '角色创建器'],
       [/Components/gi, '组件'],
       [/General/gi, '通用'],
