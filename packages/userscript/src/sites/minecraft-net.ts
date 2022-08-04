@@ -163,28 +163,9 @@ async function getContent(html: Document, ctx: Context) {
   // Remove 'GET THE SNAPSHOT/PRE-RELEASE/RELEASE-CANDIDATE/RELEASE' for releasing
   let index = ans
     .toLowerCase()
-    .lastIndexOf('[size=6][b][color=silver]get the snapshot[/color][/b][/size]')
-  if (index === -1) {
-    index = ans
-      .toLowerCase()
-      .lastIndexOf(
-        '[size=6][b][color=silver]get the pre-release[/color][/b][/size]'
-      )
-  }
-  if (index === -1) {
-    index = ans
-      .toLowerCase()
-      .lastIndexOf(
-        '[size=6][b][color=silver]get the release[/color][/b][/size]'
-      )
-  }
-  if (index === -1) {
-    index = ans
-      .toLowerCase()
-      .lastIndexOf(
-        '[size=6][b][color=silver]get the release candidate[/color][/b][/size]'
-      )
-  }
+    .search(
+      /\[size=\d]\[b\]\[color=silver\](\[b\])?get the (pre-release|release|release candidate|snapshot)(\[\/b\])?\[\/color\]\[\/b\]\[\/size\]/
+    )
   if (index !== -1) {
     ans = ans.slice(0, index)
 
