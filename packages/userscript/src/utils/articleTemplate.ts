@@ -45,7 +45,7 @@ export function getHeader(articleType: string, type: VersionType) {
 [/list][/size][/td][/tr]
 [/table][/font][/align]
 
-[hr]n`
+[hr]\n`
     case VersionType.Release:
       return `[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
 [tr=#E3C99E][td][float=left][img=46,48]https://ooo.0o0.ooo/2017/01/30/588f60bbaaf78.png[/img][/float][size=32px][b][color=#645944] Minecraft Java 版[/color][/b][/size][/td][/tr]
