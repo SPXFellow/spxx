@@ -64,7 +64,7 @@ ${translateMachinely(
   } ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
   }[/u][/color][/url]】[/b]
-【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】[/indent][/indent]\n\n${footer}`
+【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] Userscript v${spxxVersion}】[/indent][/indent]\n\n${footer}`
 
   return ans
 }
