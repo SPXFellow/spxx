@@ -233,7 +233,7 @@ export const converters = {
     } else if (ele.classList.contains('video')) {
       // Video.
       ans =
-        '\n[/indent][/indent][align=center]【请将此处替换为含https的视频链接[media]XXX[/media]】[/align][indent][indent]\n'
+        '\n[/indent][/indent][align=center][media=x,720,480]https://www.bilibili.com/video/BV1GJ411x7h7[/media]\n【请替换此处视频链接的BV号】[/align][indent][indent]\n'
     } else if (
       ele.classList.contains('quote') ||
       ele.classList.contains('attributed-quote')
