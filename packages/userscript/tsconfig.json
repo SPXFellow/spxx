@@ -8,6 +8,6 @@
     "resolveJsonModule": true,
     "composite": true
   },
-  "files": ["package.json"],
+  "include": ["./package.json", "rollup.config.ts"],
   "extends": "../../tsconfig.base.json"
 }
