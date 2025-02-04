@@ -1,4 +1,4 @@
-import { AutoTranslationTypes, Context, TranslationMappings } from '../types'
+import { Context, TranslationMappings } from '../types'
 
 const translators = {
   headings: (input: string, ctx: Context): string => {
@@ -96,22 +96,12 @@ const translators = {
       }
     )
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  code: (input: string, ctx: Context) => {
-    return quoteTreatment(input, [
-      [
-        '[backcolor=#f1edec][color=Silver][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace][/font][/color][/backcolor]',
-        '`',
-        /`/,
-      ],
-    ])
-  },
 }
 
 export default function translate(
   input: string,
   ctx: Context,
-  type: AutoTranslationTypes[] | AutoTranslationTypes
+  type: (keyof typeof translators)[] | keyof typeof translators
 ): string {
   if (typeof type === 'string') {
     type = [type]

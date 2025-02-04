@@ -18,13 +18,13 @@ export async function minecraftNet() {
       'MC_Button_Hero',
       'spxx-userscript-ignored'
     )
-    button.innerText = 'Copy BBCode'
+    button.innerText = 'Copy Markdown'
     button.onclick = async () => {
       button.innerText = 'Processing...'
-      const bbcode = await convertMCArticleToBBCode(document, url)
-      GM.setClipboard(bbcode, { type: 'text', mimetype: 'text/plain' })
-      button.innerText = 'Copied BBCode!'
-      setTimeout(() => (button.innerText = 'Copy BBCode'), 5_000)
+      const markdown = await convertMCArticleToMarkdown(document, url)
+      GM.setClipboard(markdown, { type: 'text', mimetype: 'text/plain' })
+      button.innerText = 'Copied Markdown!'
+      setTimeout(() => (button.innerText = 'Copy Markdown'), 5_000)
     }
 
     const container = document
@@ -34,7 +34,7 @@ export async function minecraftNet() {
   }
 }
 
-async function convertMCArticleToBBCode(
+async function convertMCArticleToMarkdown(
   html: Document,
   articleUrl: string,
   translator = config.translator
@@ -47,7 +47,7 @@ async function convertMCArticleToBBCode(
     bugs = await getBugs()
   } catch (e) {
     bugs = {}
-    console.error('[convertMCArticleToBBCode#getBugs]', e)
+    console.error('[convertMCArticleToMarkdown#getBugs]', e)
   }
 
   let bugsTranslators: Translator
@@ -55,7 +55,7 @@ async function convertMCArticleToBBCode(
     bugsTranslators = await getBugsTranslators()
   } catch (e) {
     bugsTranslators = {}
-    console.error('[convertMCArticleToBBCode#getBugs]', e)
+    console.error('[convertMCArticleToMarkdown#getBugs]', e)
   }
 
   let translatorColor: ColorMap
@@ -63,7 +63,7 @@ async function convertMCArticleToBBCode(
     translatorColor = await getTranslatorColor()
   } catch (e) {
     translatorColor = {}
-    console.error('[convertMCArticleToBBCode#getBugs]', e)
+    console.error('[convertMCArticleToMarkdown#getBugs]', e)
   }
 
   const header = getHeader(articleType, versionType)
@@ -116,7 +116,7 @@ function getVersionType(url: string): VersionType {
 }
 
 /**
- * Get the hero image (head image) of an article as the form of a BBCode string.
+ * Get the hero image (head image) of an article as the form of a Markdown string.
  * @param html An HTML Document.
  */
 function getHeroImage(html: Document, articleType: string | undefined) {
@@ -138,14 +138,16 @@ function getHeroImage(html: Document, articleType: string | undefined) {
 }
 
 /**
- * Get the content of an article as the form of a BBCode string.
+ * Get the content of an article as the form of a Markdown string.
  * @param html An HTML Document.
  */
 async function getContent(html: Document, ctx: Context) {
-  const rootDiv = html.querySelectorAll(
+  let ans = ''
+  for (const rootDiv of html.querySelectorAll(
     '.MC_Layout_Article > div > *:not(:nth-last-child(-n + 2))'
-  )[0] as HTMLElement
-  let ans = await converters.recurse(rootDiv, ctx)
+  )) {
+    ans += await converters.recursive(rootDiv as HTMLElement, ctx)
+  }
   console.log(ans)
 
   // Get the server URL if it exists.
@@ -156,8 +158,7 @@ async function getContent(html: Document, ctx: Context) {
   if (serverUrls) {
     serverUrl = serverUrls[0]
   }
-  // Remove the text after '】'
-  ans = ans.slice(0, ans.lastIndexOf('】') + 1)
+
   // Remove 'GET THE SNAPSHOT/PRE-RELEASE/RELEASE-CANDIDATE/RELEASE' for releasing
   const index = ans
     .toLowerCase()
@@ -168,8 +169,8 @@ async function getContent(html: Document, ctx: Context) {
     ans = ans.slice(0, index)
 
     // Add back 【SPXX】
-    const attribution = await converters.recurse(
-      document.querySelector('.attribution'),
+    const attribution = await converters.recursive(
+      document.querySelector('.attribution')!,
       ctx
     )
     ans = `${ans}${attribution}`

@@ -5,7 +5,7 @@ import { spxxVersion } from './consts'
 
 export const converters = {
   /**
-   * Converts a ChildNode to a BBCode string according to the type of the node.
+   * Converts a ChildNode to a Markdown string according to the type of the node.
    */
   convert: async (node: ChildNode, ctx: Context): Promise<string> => {
     if ((node as HTMLElement).classList?.contains('spxx-userscript-ignored')) {
@@ -103,9 +103,9 @@ export const converters = {
     }
   },
   /**
-   * Convert child nodes of an HTMLElement to a BBCode string.
+   * Convert child nodes of an HTMLElement to a Markdown string.
    */
-  recurse: async (ele: HTMLElement, ctx: Context) => {
+  recursive: async (ele: HTMLElement, ctx: Context) => {
     let ans = ''
 
     if (!ele) {
@@ -122,20 +122,17 @@ export const converters = {
     const url = resolveUrl(anchor.href)
     let ans: string
     if (url) {
-      ans = `[url=${url}][color=#388d40]${await converters.recurse(
-        anchor,
-        ctx
-      )}[/color][/url]`
+      ans = `[${await converters.recursive(anchor, ctx)}](${url})`
     } else {
-      ans = await converters.recurse(anchor, ctx)
+      ans = await converters.recursive(anchor, ctx)
     }
 
     return ans
   },
   blockquote: async (ele: HTMLQuoteElement, ctx: Context) => {
-    const prefix = ''
-    const suffix = ''
-    const ans = `${prefix}${await converters.recurse(ele, ctx)}${suffix}`
+    const prefix = '> '
+    const suffix = '\n'
+    const ans = `${prefix}${await converters.recursive(ele, ctx)}${suffix}`
 
     return ans
   },
@@ -148,17 +145,15 @@ export const converters = {
     const prefix = '—— '
     const suffix = ''
 
-    const ans = `${prefix}${await converters.recurse(ele, ctx)}${suffix}`
+    const ans = `${prefix}${await converters.recursive(ele, ctx)}${suffix}`
 
     return ans
   },
   code: async (ele: HTMLElement, ctx: Context) => {
-    const prefix = ctx.multiLineCode
-      ? '[code]'
-      : '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace]'
-    const suffix = ctx.multiLineCode ? '[/code]' : '[/font][/color][/backcolor]'
+    const prefix = ctx.multiLineCode ? '```' : '`'
+    const suffix = ctx.multiLineCode ? '```' : '`'
 
-    const ans = `${prefix}${await converters.recurse(ele, {
+    const ans = `${prefix}${await converters.recursive(ele, {
       ...ctx,
       disablePunctuationConverter: true,
     })}${suffix}`
@@ -166,12 +161,13 @@ export const converters = {
     return ans
   },
   div: async (ele: HTMLDivElement, ctx: Context) => {
-    let ans = await converters.recurse(ele, ctx)
+    let ans = await converters.recursive(ele, ctx)
 
     if (ele.classList.contains('text-center')) {
-      ans = `[/indent][/indent][align=center]${ans}[/align][indent][indent]\n`
+      // no way to center text
+      // ans = `[/indent][/indent][align=center]${ans}[/align][indent][indent]\n`
     } else if (ele.classList.contains('article-image-carousel')) {
-      // Image carousel.
+      // TODO: Image carousel.
       /*
        * <div> .article-image-carousel
        *   <div> .slick-list
@@ -201,7 +197,7 @@ export const converters = {
           ele.classList.contains('article-image-carousel__caption')
         ) {
           if (slides.length > 0) {
-            slides[slides.length - 1][1] = `[b]${await converters.recurse(
+            slides[slides.length - 1][1] = `[b]${await converters.recursive(
               ele,
               ctx
             )}[/b]`
@@ -227,16 +223,22 @@ export const converters = {
         ans = ''
       }
     } else if (ele.classList.contains('video')) {
-      // Video.
+      // TODO: Video.
       ans =
-        '\n[/indent][/indent][align=center][media=x,720,480]https://www.bilibili.com/video/BV1GJ411x7h7[/media]\n【请替换此处视频链接的BV号】[/align][indent][indent]\n'
+        '\nhttps://www.bilibili.com/video/BV1GJ411x7h7【请替换此处视频链接的BV号】\n'
     } else if (
       ele.classList.contains('quote') ||
       ele.classList.contains('attributed-quote')
     ) {
-      ans = `\n[quote]\n${ans}\n[/quote]\n`
-    } else if (ele.classList.contains('article-social')) {
+      ans = `\n> ${ans}\n`
+    } else if (
+      ele.classList.contains('MC_imageGridA') ||
+      ele.classList.contains('MC_socialShareA')
+    ) {
       // End of the content.
+      ans = ''
+    } else if (ele.classList.contains('MC_articleHeroA_attribution')) {
+      // No need to convert
       ans = ''
     } else if (ele.classList.contains('modal')) {
       // Unknown useless content
@@ -257,10 +259,10 @@ export const converters = {
   dl: async (ele: HTMLElement, ctx: Context) => {
     // The final <dd> after converted will contains an footer comma '，'
     // So I don't add any comma before '译者'.
-    const ans = `\n\n${await converters.recurse(
+    const ans = `\n\n${await converters.recursive(
       ele,
       ctx
-    )}\n【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] v${spxxVersion}】\n\n`
+    )}\n【本文排版借助了：SPXX v${spxxVersion}】\n\n`
     return ans
   },
   dd: async (ele: HTMLElement, ctx: Context) => {
@@ -271,7 +273,7 @@ export const converters = {
       // `pubDate` is like '2019-03-08T10:00:00.876+0000'.
       const date = ele.attributes.getNamedItem('data-value')
       if (date) {
-        ans = `[b]【${ctx.translator} 译自[url=${
+        ans = `**【${ctx.translator} 译自[url=${
           ctx.url
         }][color=#388d40][u]官网 ${date.value.slice(
           0,
@@ -279,31 +281,28 @@ export const converters = {
         )} 年 ${date.value.slice(5, 7)} 月 ${date.value.slice(
           8,
           10
-        )} 日发布的 ${ctx.title}[/u][/color][/url]；原作者 ${ctx.author}】[/b]`
+        )} 日发布的 ${ctx.title}[/u][/color][/url]；原作者 ${ctx.author}】**`
       } else {
         ans = `[b]【${ctx.translator} 译自[url=${ctx.url}][color=#388d40][u]官网 哪 年 哪 月 哪 日发布的 ${ctx.title}[/u][/color][/url]】[/b]`
       }
     } else {
       // Written by:
-      ctx.author = await converters.recurse(ele, ctx)
+      ctx.author = await converters.recursive(ele, ctx)
     }
 
     return ans
   },
   em: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `[i]${await converters.recurse(ele, ctx)}[/i]`
+    const ans = `_${await converters.recursive(ele, ctx)}_`
 
     return ans
   },
   h1: async (ele: HTMLElement, ctx: Context) => {
-    const prefix = '[size=6][b]'
-    const suffix = '[/b][/size]'
-    const rawInner = await converters.recurse(ele, ctx)
-    const inner = makeUppercaseHeader(rawInner)
-    const ans = `${prefix}[color=Silver]${usingSilver(inner).replace(
-      /[\n\r]+/g,
-      ' '
-    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+    const prefix = '# '
+    const suffix = ''
+    const rawInner = await converters.recursive(ele, ctx)
+    const inner = rawInner.toUpperCase()
+    const ans = `${prefix}${translate(`${inner}`, ctx, [
       'headings',
       'punctuation',
     ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
@@ -313,14 +312,11 @@ export const converters = {
   h2: async (ele: HTMLElement, ctx: Context) => {
     if (isBlocklisted(ele.textContent!)) return ''
 
-    const prefix = '[size=5][b]'
-    const suffix = '[/b][/size]'
-    const rawInner = await converters.recurse(ele, ctx)
-    const inner = makeUppercaseHeader(rawInner)
-    const ans = `\n${prefix}[color=Silver]${usingSilver(inner).replace(
-      /[\n\r]+/g,
-      ' '
-    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+    const prefix = '## '
+    const suffix = ''
+    const rawInner = await converters.recursive(ele, ctx)
+    const inner = rawInner.toUpperCase()
+    const ans = `${prefix}${translate(`${inner}`, ctx, [
       'headings',
       'punctuation',
     ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
@@ -328,14 +324,10 @@ export const converters = {
     return ans
   },
   h3: async (ele: HTMLElement, ctx: Context) => {
-    const prefix = '[size=4][b]'
-    const suffix = '[/b][/size]'
-    const rawInner = await converters.recurse(ele, ctx)
-    const inner = makeUppercaseHeader(rawInner)
-    const ans = `\n${prefix}[color=Silver]${usingSilver(inner).replace(
-      /[\n\r]+/g,
-      ' '
-    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+    const prefix = '### '
+    const suffix = ''
+    const inner = await converters.recursive(ele, ctx)
+    const ans = `${prefix}${translate(`${inner}`, ctx, [
       'headings',
       'punctuation',
     ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
@@ -343,14 +335,10 @@ export const converters = {
     return ans
   },
   h4: async (ele: HTMLElement, ctx: Context) => {
-    const prefix = '[size=3][b]'
-    const suffix = '[/b][/size]'
-    const rawInner = await converters.recurse(ele, ctx)
-    const inner = makeUppercaseHeader(rawInner)
-    const ans = `\n${prefix}[color=Silver]${usingSilver(inner).replace(
-      /[\n\r]+/g,
-      ' '
-    )}[/color]${suffix}\n${prefix}${translate(`${inner}`, ctx, [
+    const prefix = '#### '
+    const suffix = ''
+    const inner = await converters.recursive(ele, ctx)
+    const ans = `${prefix}${translate(`${inner}`, ctx, [
       'headings',
       'punctuation',
     ]).replace(/[\n\r]+/g, ' ')}${suffix}\n\n`
@@ -358,7 +346,7 @@ export const converters = {
     return ans
   },
   i: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `[i]${await converters.recurse(ele, ctx)}[/i]`
+    const ans = `_${await converters.recursive(ele, ctx)}_`
 
     return ans
   },
@@ -367,107 +355,64 @@ export const converters = {
       return ''
     }
 
-    let w: number | undefined
-    let h: number | undefined
+    // let w: number | undefined
+    // let h: number | undefined
 
-    if (img.classList.contains('attributed-quote__image')) {
-      // for in-quote avatar image
-      h = 92
-      w = 53
-    } else if (img.classList.contains('mr-3')) {
-      // for attributor avatar image
-      h = 121
-      w = 82
-    }
+    // if (img.classList.contains('attributed-quote__image')) {
+    //   // for in-quote avatar image
+    //   h = 92
+    //   w = 53
+    // } else if (img.classList.contains('mr-3')) {
+    //   // for attributor avatar image
+    //   h = 121
+    //   w = 82
+    // }
 
-    const prefix = w && h ? `[img=${w},${h}]` : '[img]'
+    const prefix = `![${img.alt}]`
     const imgUrl = resolveUrl(img.src)
     if (imgUrl === '') return '' // in case of empty image
 
-    let ans: string
-    if (
-      img.classList.contains('attributed-quote__image') ||
-      img.classList.contains('mr-3')
-    ) {
-      // Attributed quote author avatar.
-      ans = `\n[float=left]${prefix}${imgUrl}[/img][/float]`
-    } else {
-      ans = `\n\n[/indent][/indent][align=center]${prefix}${imgUrl}[/img][/align][indent][indent]\n`
-    }
+    const ans = `\n\n${prefix}(${imgUrl})\n`
 
     return ans
   },
   li: async (ele: HTMLElement, ctx: Context) => {
     let ans: string
 
-    let nestedList = false
-    for (const child of ele.childNodes) {
-      if (child.nodeName === 'OL' || child.nodeName === 'UL') {
-        nestedList = true
+    let depth = 0
+    let parent = ele.parentElement
+    while (parent) {
+      if (parent.nodeName === 'UL' || parent.nodeName === 'OL') {
+        depth++
       }
+      parent = parent.parentElement
     }
 
-    if (nestedList) {
-      // Nested lists.
-      let theParagragh = ''
-      let theList = ''
-      let addingList = false
-      for (let i = 0; i < ele.childNodes.length - 1; i++) {
-        const nodeName = ele.childNodes[i].nodeName
-        if (nodeName === 'OL' || nodeName === 'UL') {
-          addingList = true
-        }
-        if (!addingList) {
-          const paragraghNode = await converters.convert(ele.childNodes[i], {
-            ...ctx,
-            inList: true,
-          })
-          theParagragh = `${theParagragh}${paragraghNode}`
-        } else {
-          const listNode = await converters.convert(ele.childNodes[i], {
-            ...ctx,
-            inList: true,
-          })
-          theList = `${theList}${listNode}`
-        }
-      }
-      ans = `[*][color=Silver]${usingSilver(
-        theParagragh
-      )}[/color]\n[*]${translate(
-        translateBugs(theParagragh, ctx),
-        ctx,
-        'code'
-      )}\n${theList}`
-    } else if (isBlocklisted(ele.textContent!)) {
+    if (isBlocklisted(ele.textContent!)) {
       return ''
     } else {
-      const inner = await converters.recurse(ele, { ...ctx, inList: true })
-      ans = `[*][color=Silver]${usingSilver(inner)}[/color]\n[*]${translate(
-        translateBugs(inner, ctx),
-        ctx,
-        'code'
-      )}\n`
+      const inner = await converters.recursive(ele, { ...ctx, inList: true })
+      ans = `${'  '.repeat(depth - 1)}${
+        ele.parentElement!.nodeName === 'UL'
+          ? '- '
+          : `${Array.from(ele.parentElement!.children).indexOf(ele) + 1}. `
+      }${translateBugs(inner, ctx)}\n`
     }
 
     return ans
   },
   ol: async (ele: HTMLElement, ctx: Context) => {
-    const inner = await converters.recurse(ele, ctx)
-    const ans = `[list=1]\n${inner}[/list]\n`
+    const ans = `${await converters.recursive(ele, ctx)}\n`
 
     return ans
   },
   p: async (ele: HTMLElement, ctx: Context) => {
-    const inner = await converters.recurse(ele, ctx)
+    const inner = await converters.recursive(ele, ctx)
 
     let ans: string
 
-    if (ele.classList.contains('lead')) {
-      ans = `[size=4][b][size=2][color=Silver]${inner}[/color][/size][/b][/size]\n[size=4][b]${translate(
-        inner,
-        ctx,
-        'headings'
-      )}[/b][/size]\n\n`
+    if (ele.classList.contains('MC_articleHeroA_header_subheadline')) {
+      ans = `### ${translate(inner, ctx, 'headings')}\n\n`
     } else if (
       ele.querySelector('strong') !== null &&
       ele.querySelector('strong')!.textContent === 'Posted:'
@@ -486,41 +431,35 @@ export const converters = {
       if (ctx.inList) {
         ans = inner
       } else {
-        ans = `[size=2][color=Silver]${usingSilver(
-          inner
-        )}[/color][/size]\n${translate(inner, ctx, [
-          'punctuation',
-          'imgCredits',
-        ])}\n\n`
+        ans = `${translate(inner, ctx, ['punctuation', 'imgCredits'])}\n\n`
       }
     }
 
     return ans
   },
   picture: async (ele: HTMLElement, ctx: Context) => {
-    const ans = await converters.recurse(ele, ctx)
+    const ans = await converters.recursive(ele, ctx)
     return ans
   },
   pre: async (ele: HTMLElement, ctx: Context) => {
-    const ans = await converters.recurse(ele, { ...ctx, multiLineCode: true })
+    const ans = await converters.recursive(ele, { ...ctx, multiLineCode: true })
     return ans
   },
   span: async (ele: HTMLElement, ctx: Context) => {
-    const ans = await converters.recurse(ele, ctx)
+    const ans = await converters.recursive(ele, ctx)
 
     if (ele.classList.contains('bedrock-server')) {
       // Inline code.
-      const prefix =
-        '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace]'
-      const suffix = '[/font][/color][/backcolor]'
-      return `${prefix}${await converters.recurse(ele, {
+      const prefix = '`'
+      const suffix = '`'
+      return `${prefix}${await converters.recursive(ele, {
         ...ctx,
         disablePunctuationConverter: true,
       })}${suffix}`
     } else if (ele.classList.contains('strikethrough')) {
       // Strikethrough text.
-      const prefix = '[s]'
-      const suffix = '[/s]'
+      const prefix = '~~'
+      const suffix = '~~'
       return `${prefix}${ans}${suffix}`
     } else if (
       ele.childElementCount === 1 &&
@@ -534,33 +473,32 @@ export const converters = {
     return ans
   },
   strong: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `[b]${await converters.recurse(ele, ctx)}[/b]`
+    const ans = `**${await converters.recursive(ele, ctx)}**`
 
     return ans
   },
   table: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `\n[table]\n${await converters.recurse(ele, ctx)}[/table]\n`
+    const ans = `\n[table]\n${await converters.recursive(ele, ctx)}[/table]\n`
 
     return ans
   },
   tbody: async (ele: HTMLElement, ctx: Context) => {
-    const ans = await converters.recurse(ele, ctx)
+    const ans = await converters.recursive(ele, ctx)
 
     return ans
   },
   td: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `[td]${await converters.recurse(ele, ctx)}[/td]`
+    const ans = `[td]${await converters.recursive(ele, ctx)}[/td]`
 
     return ans
   },
   tr: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `[tr]${await converters.recurse(ele, ctx)}[/tr]\n`
+    const ans = `[tr]${await converters.recursive(ele, ctx)}[/tr]\n`
 
     return ans
   },
   ul: async (ele: HTMLElement, ctx: Context) => {
-    const inner = await converters.recurse(ele, ctx)
-    const ans = `[list]\n${inner}[/list]\n`
+    const ans = `${await converters.recursive(ele, ctx)}\n`
 
     return ans
   },
@@ -575,38 +513,6 @@ export function resolveUrl(url: string) {
   } else {
     return url
   }
-}
-
-export function usingSilver(text: string) {
-  return text.replace(/#388d40/g, 'Silver').replace(/#7824c5/g, 'Silver')
-}
-
-export function makeUppercaseHeader(header: string) {
-  let retStr = ''
-  let idx = 0
-  let bracket = 0
-  for (let i = 0; i < header.length; i++) {
-    if (header[i] == '[') {
-      if (bracket == 0) {
-        retStr = retStr.concat(header.substring(idx, i).toUpperCase())
-        idx = i
-      }
-      bracket++
-    } else if (header[i] == ']') {
-      if (bracket <= 1) {
-        retStr = retStr.concat(header.substring(idx, i + 1))
-        idx = i + 1
-      }
-      bracket = Math.max(0, bracket - 1)
-    }
-  }
-  if (bracket > 0) {
-    console.error('bracket not closed!')
-    retStr = retStr.concat(header.substring(idx, header.length))
-  } else {
-    retStr = retStr.concat(header.substring(idx, header.length).toUpperCase())
-  }
-  return retStr
 }
 
 /**
@@ -678,13 +584,6 @@ export async function getTranslatorColor(): Promise<ResolvedBugs> {
   })
 }
 
-function markdownToBbcode(value: string): string {
-  return value.replace(
-    /`([^`]+)`/g,
-    '[backcolor=#f1edec][color=#7824c5][font=SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace]$1[/font][/color][/backcolor]'
-  )
-}
-
 /**
  * Replace untranslated bugs.
  */
@@ -704,8 +603,8 @@ function translateBugs(str: string, ctx: Context): string {
           bugColor = ctx.translatorColor[bugTranslator]
         }
       }
-      const bbcode = markdownToBbcode(data)
-      return `[url=https://bugs.mojang.com/browse/${id}][b][color=${bugColor}]${id}[/color][/b][/url]- ${bbcode}`
+
+      return `[${id}](https://bugs.mojang.com/browse/${id}) - ${data}`
     } else {
       return str
     }

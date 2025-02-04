@@ -13,10 +13,10 @@ export default function getZendesk(
 ) {
   const button = document.createElement('a')
   button.classList.add('navLink')
-  button.innerText = 'Copy BBCode'
+  button.innerText = 'Copy Markdown'
   button.onclick = async () => {
     button.innerText = 'Processing...'
-    const bbcode = await convertZendeskArticleToBBCode(
+    const bbcode = await convertZendeskArticleToMarkdown(
       document,
       location.href,
       config.translator,
@@ -25,14 +25,14 @@ export default function getZendesk(
       versionType
     )
     GM.setClipboard(bbcode, { type: 'text', mimetype: 'text/plain' })
-    button.innerText = 'Copied BBCode!'
-    setTimeout(() => (button.innerText = 'Copy BBCode'), 5_000)
+    button.innerText = 'Copied Markdown!'
+    setTimeout(() => (button.innerText = 'Copy Markdown'), 5_000)
   }
 
   controlDOM(button)
 }
 
-async function convertZendeskArticleToBBCode(
+async function convertZendeskArticleToMarkdown(
   html: Document,
   articleUrl: string,
   translator = config.translator,
@@ -77,7 +77,7 @@ async function getZendeskContent(
   const rootSection = html.getElementsByClassName(
     contentClass
   )[0] as HTMLElement // Yep, this is the only difference.
-  let ans = await converters.recurse(rootSection, ctx)
+  let ans = await converters.recursive(rootSection, ctx)
 
   // Add spaces between texts and '[x'.
   ans = ans.replace(/([a-zA-Z0-9\-._])(\[[A-Za-z])/g, '$1 $2')

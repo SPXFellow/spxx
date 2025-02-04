@@ -4,7 +4,7 @@ export interface TwitterConfig {
   bearer_token: string
 }
 
-export async function getTweetBBCode(
+export async function getTweetMarkdown(
   config: TwitterConfig,
   tweetId: string,
   mode: 'light' | 'dark'
@@ -177,12 +177,12 @@ function getTweetBbcode({
   let skippedIndex = 0
   let content = text
   for (const url of urls) {
-    const urlBBCode = `[url=${url.expanded_url}][color=${linkColor}]${url.display_url}[/color][/url]`
+    const urlMarkdown = `[url=${url.expanded_url}][color=${linkColor}]${url.display_url}[/color][/url]`
     content =
       content.slice(0, skippedIndex + url.start - 1) +
-      urlBBCode +
+      urlMarkdown +
       content.slice(skippedIndex + url.end)
-    skippedIndex += urlBBCode.length - (url.end - url.start)
+    skippedIndex += urlMarkdown.length - (url.end - url.start)
   }
   const res = `[align=center][table=560,${backgroundColor}]
 [tr][td][font=-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif][indent]

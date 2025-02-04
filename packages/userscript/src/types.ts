@@ -25,9 +25,3 @@ export interface ColorMap {
 }
 
 export type TranslationMappings = [RegExp, string][]
-
-export type AutoTranslationTypes =
-  | 'code'
-  | 'headings'
-  | 'punctuation'
-  | 'imgCredits'

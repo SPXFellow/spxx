@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "../dist/",
-    "resolveJsonModule": true,
-    "lib": ["esnext", "DOM", "DOM.Iterable"]
-  },
-  "references": [{ "path": "../" }]
-}

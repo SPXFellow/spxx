@@ -1,7 +1,7 @@
 import express from 'express'
 import path from 'path'
 import fs from 'fs-extra'
-import { TwitterConfig, getTweetBBCode } from './twitter.js'
+import { TwitterConfig, getTweetMarkdown } from './twitter.js'
 
 const configPath = path.join(__dirname, './config.json')
 let httpPort: number | undefined
@@ -33,7 +33,7 @@ const app = express().get('/tweet/:tweetId', async (req, res) => {
       ? (req.query.mode as 'light' | 'dark')
       : 'light'
   console.log(`Tweet: ${req.params.tweetId}, ${mode}`)
-  const bbcode = await getTweetBBCode(twitter!, req.params.tweetId, mode)
+  const bbcode = await getTweetMarkdown(twitter!, req.params.tweetId, mode)
   res.send(bbcode)
 })
 
