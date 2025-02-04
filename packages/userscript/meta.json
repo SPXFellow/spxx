@@ -22,12 +22,10 @@
     "https://feedback.minecraft.net/hc/en-us/articles/*",
     "https://help.minecraft.net/hc/en-us/articles/*"
   ],
-  "require": [
-    "https://fastly.jsdelivr.net/gh/sizzlemctwizzle/GM_config@2207c5c1322ebb56e401f03c2e581719f909762a/GM_config.js"
-  ],
+  "require": ["https://openuserjs.org/src/libs/sizzle/GM_config.js"],
   "grant": [
     "GM.setClipboard",
-    "GM.xmlhttpRequest",
+    "GM.xmlHttpRequest",
     "GM.getValue",
     "GM.setValue",
     "GM.registerMenuCommand"

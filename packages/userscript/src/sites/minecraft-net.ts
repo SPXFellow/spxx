@@ -12,15 +12,10 @@ import {
 export async function minecraftNet() {
   const url = document.location.toString()
   if (url.match(/^https:\/\/www\.minecraft\.net\/(?:[a-z-]+)\/article\//)) {
-    const pointerModifier = document
-      .getElementsByClassName('article-attribution-container')
-      .item(0) as HTMLDivElement
-    pointerModifier.style.pointerEvents = 'inherit'
-
     const button = document.createElement('button')
     button.classList.add(
-      'mc-button__primary',
-      'mc-button__green-s1',
+      'mc-MC_Button',
+      'MC_Button_Hero',
       'spxx-userscript-ignored'
     )
     button.innerText = 'Copy BBCode'
@@ -33,7 +28,7 @@ export async function minecraftNet() {
     }
 
     const container = document
-      .getElementsByClassName('attribution')
+      .getElementsByClassName('MC_articleHeroA_attribution')
       .item(0) as HTMLDivElement
     container.append(button)
   }
@@ -95,8 +90,8 @@ async function convertMCArticleToBBCode(
 function getArticleType(html: Document): string {
   try {
     const type =
-      html.getElementsByClassName('article-category__text')?.[0]?.textContent ??
-      ''
+      html.getElementsByClassName('MC_articleHeroA_category')?.[0]
+        ?.textContent ?? ''
     return type.toUpperCase()
   } catch (e) {
     console.error('[getArticleType]', e)
@@ -147,8 +142,11 @@ function getHeroImage(html: Document, articleType: string | undefined) {
  * @param html An HTML Document.
  */
 async function getContent(html: Document, ctx: Context) {
-  const rootDiv = html.getElementsByClassName('article-body')[0] as HTMLElement
+  const rootDiv = html.querySelectorAll(
+    '.MC_Layout_Article > div > *:not(:nth-last-child(-n + 2))'
+  )[0] as HTMLElement
   let ans = await converters.recurse(rootDiv, ctx)
+  console.log(ans)
 
   // Get the server URL if it exists.
   const serverUrls = ans.match(

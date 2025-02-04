@@ -7,9 +7,9 @@
   "author": "SPXFellow",
   "license": "CC0-1.0",
   "scripts": {
-    "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
-    "prepack": "rollup",
-    "watch": "rollup -w"
+    "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
+    "prepack": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
+    "watch": "rollup -w --config rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with"
   },
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -17,14 +17,12 @@
     "@babel/preset-typescript": "^7.23.2",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-json": "^6.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
-    "@types/tampermonkey": "^4.20.4",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "@typescript-eslint/parser": "^6.9.0",
-    "eslint": "^8.52.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/tampermonkey": "^5.0.4",
+    "eslint": "^9.19.0",
     "rollup": "^4.1.4",
-    "rollup-plugin-userscript-metablock": "^0.3.3",
+    "rollup-plugin-userscript-metablock": "^0.4.2",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
   }

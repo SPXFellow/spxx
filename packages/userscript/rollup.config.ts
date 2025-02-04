@@ -4,7 +4,7 @@ import babelPluggin from '@rollup/plugin-babel'
 import metablock from 'rollup-plugin-userscript-metablock'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import jsonPlugin from '@rollup/plugin-json'
-import * as pkg from './package.json' assert { type: 'json' }
+import * as pkg from './package.json' with { type: 'json' }
 
 export default defineConfig({
   input: 'src/main.ts',
@@ -12,6 +12,7 @@ export default defineConfig({
     file: 'dist/bundle.user.js',
     format: 'iife',
     sourcemap: true,
+    importAttributesKey: 'with',
   },
   plugins: [
     typescriptPlugin({

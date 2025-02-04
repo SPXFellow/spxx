@@ -1,11 +1,7 @@
+import config from '../config'
 import { Context, ResolvedBugs } from '../types'
 import translate from './autoTranslation'
-import {
-  bugsCenter,
-  bugsTranslatorsTable,
-  spxxVersion,
-  translatorColorTable,
-} from './consts'
+import { spxxVersion } from './consts'
 
 export const converters = {
   /**
@@ -618,9 +614,9 @@ export function makeUppercaseHeader(header: string) {
  */
 export async function getBugs(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
-    GM.xmlhttpRequest({
+    GM.xmlHttpRequest({
       method: 'GET',
-      url: bugsCenter,
+      url: config.bugCenter.translation,
       fetch: true,
       nocache: true,
       timeout: 7_000,
@@ -640,9 +636,9 @@ export async function getBugs(): Promise<ResolvedBugs> {
 
 export async function getBugsTranslators(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
-    GM.xmlhttpRequest({
+    GM.xmlHttpRequest({
       method: 'GET',
-      url: bugsTranslatorsTable,
+      url: config.bugCenter.translator,
       fetch: true,
       nocache: true,
       timeout: 7_000,
@@ -662,9 +658,9 @@ export async function getBugsTranslators(): Promise<ResolvedBugs> {
 
 export async function getTranslatorColor(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
-    GM.xmlhttpRequest({
+    GM.xmlHttpRequest({
       method: 'GET',
-      url: translatorColorTable,
+      url: config.bugCenter.color,
       fetch: true,
       nocache: true,
       timeout: 7_000,
@@ -740,13 +736,13 @@ function isBlocklisted(text: string): boolean {
   ]
   return blocklist
     .map((i) => {
-      return i.replace(/\p{General_Category=Space_Separator}*/, '')
+      return i.replace(/\p{General_Category=Space_Separator}*/u, '')
     })
     .some((block) =>
       text
         .trim()
         .trim()
-        .replace(/\p{General_Category=Space_Separator}*/, '')
+        .replace(/\p{General_Category=Space_Separator}*/u, '')
         .includes(block)
     )
 }
