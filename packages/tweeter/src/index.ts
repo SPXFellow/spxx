@@ -1,6 +1,5 @@
 import express from 'express'
 import path from 'path'
-// eslint-igonre-next-line
 import fs from 'fs-extra'
 import { TwitterConfig, getTweetBBCode } from './twitter.js'
 

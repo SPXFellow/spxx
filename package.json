@@ -8,15 +8,19 @@
   "homepage": "https://github.com/SPXFellow/spx#readme",
   "author": "SPXFellow",
   "license": "CC0-1.0",
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  },
   "devDependencies": {
-    "@typescript-eslint/parser": "^6.9.0",
-    "eslint": "^8.52.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.19.0",
+    "eslint": "^8.57.1",
+    "globals": "^15.14.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "typescript-eslint": "^8.23.0"
   },
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "packageManager": "yarn@4.0.0"
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }

@@ -27,7 +27,7 @@ export async function minecraftNet() {
     button.onclick = async () => {
       button.innerText = 'Processing...'
       const bbcode = await convertMCArticleToBBCode(document, url)
-      GM_setClipboard(bbcode, { type: 'text', mimetype: 'text/plain' })
+      GM.setClipboard(bbcode, { type: 'text', mimetype: 'text/plain' })
       button.innerText = 'Copied BBCode!'
       setTimeout(() => (button.innerText = 'Copy BBCode'), 5_000)
     }
@@ -161,7 +161,7 @@ async function getContent(html: Document, ctx: Context) {
   // Remove the text after '】'
   ans = ans.slice(0, ans.lastIndexOf('】') + 1)
   // Remove 'GET THE SNAPSHOT/PRE-RELEASE/RELEASE-CANDIDATE/RELEASE' for releasing
-  let index = ans
+  const index = ans
     .toLowerCase()
     .search(
       /\[size=\d]\[b\]\[color=silver\](\[b\])?get the (pre-release|release|release candidate|snapshot)(\[\/b\])?\[\/color\]\[\/b\]\[\/size\]/

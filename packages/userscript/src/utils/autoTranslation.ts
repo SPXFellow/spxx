@@ -17,7 +17,7 @@ const translators = {
       ],
       [
         /Minecraft Beta & Preview - (.*?)/g,
-        'Minecraft 基岩版 Beta & Preview $1'
+        'Minecraft 基岩版 Beta & Preview $1',
       ],
       [/Minecraft (?:-|——) (.*?) \(Bedrock\)/gi, 'Minecraft 基岩版 $1'],
       [
@@ -54,22 +54,10 @@ const translators = {
       [/ Pre-Release /gi, '-pre'],
       [/ Release Candidate /gi, '-rc'],
       [/Release Candidate/gi, '候选版本'],
-      [
-        /New Features in ([^\r\n]+)/gi,
-        '$1 的新增特性',
-      ],
-      [
-        /Technical changes in ([^\r\n]+)/gi,
-        '$1 的技术性修改',
-      ],
-      [
-        /Changes in ([^\r\n]+)/gi,
-        '$1 的修改内容',
-      ],
-      [
-        /Fixed bugs in ([^\r\n]+)/gi,
-        '$1 修复的漏洞',
-      ],
+      [/New Features in ([^\r\n]+)/gi, '$1 的新增特性'],
+      [/Technical changes in ([^\r\n]+)/gi, '$1 的技术性修改'],
+      [/Changes in ([^\r\n]+)/gi, '$1 的修改内容'],
+      [/Fixed bugs in ([^\r\n]+)/gi, '$1 修复的漏洞'],
     ])
   },
   imgCredits: (input: string, ctx: Context) => {
@@ -86,30 +74,45 @@ const translators = {
     ])
   },
   punctuation: (input: string, ctx: Context) => {
-    return translator(input, ctx, [
-      [/\[i\]/gi, '[font=楷体]'],
-      [/\[\/i\]/g, '[/font]'],
-      ...(ctx.disablePunctuationConverter
-        ? []
-        : ([
-            [/,( |$)/g, '，'],
-            [/!( |$)/g, '！'],
-            [/\.\.\.( |$)/g, '…'],
-            [/\.( |$)/g, '。'],
-            [/\?( |$)/g, '？'],
-            [/( |^)-( |$)/g, ' —— '],
-          ] as [RegExp, string][])),
-    ], (input: string) => {
-      return quoteTreatment(input, [['“', '”', /"/]])
-    })
+    return translator(
+      input,
+      ctx,
+      [
+        [/\[i\]/gi, '[font=楷体]'],
+        [/\[\/i\]/g, '[/font]'],
+        ...(ctx.disablePunctuationConverter
+          ? []
+          : ([
+              [/,( |$)/g, '，'],
+              [/!( |$)/g, '！'],
+              [/\.\.\.( |$)/g, '…'],
+              [/\.( |$)/g, '。'],
+              [/\?( |$)/g, '？'],
+              [/( |^)-( |$)/g, ' —— '],
+            ] as [RegExp, string][])),
+      ],
+      (input: string) => {
+        return quoteTreatment(input, [['“', '”', /"/]])
+      }
+    )
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   code: (input: string, ctx: Context) => {
-    return quoteTreatment(input, [['[backcolor=#f1edec][color=Silver][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace][/font][/color][/backcolor]', '`', /`/]])
-  }
+    return quoteTreatment(input, [
+      [
+        '[backcolor=#f1edec][color=Silver][font=SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace][/font][/color][/backcolor]',
+        '`',
+        /`/,
+      ],
+    ])
+  },
 }
 
-export default function translate(input: string, ctx: Context, type: AutoTranslationTypes[] | AutoTranslationTypes): string {
+export default function translate(
+  input: string,
+  ctx: Context,
+  type: AutoTranslationTypes[] | AutoTranslationTypes
+): string {
   if (typeof type === 'string') {
     type = [type]
   }
@@ -119,7 +122,10 @@ export default function translate(input: string, ctx: Context, type: AutoTransla
   return input
 }
 
-function quoteTreatment(input: string, quoteArrays: [string, string, RegExp][]) {
+function quoteTreatment(
+  input: string,
+  quoteArrays: [string, string, RegExp][]
+) {
   for (const quoteArray of quoteArrays) {
     const split = input.split(quoteArray[2])
     input = ''
@@ -133,11 +139,11 @@ function quoteTreatment(input: string, quoteArrays: [string, string, RegExp][]) 
 }
 
 function translator(
-    input: string,
-    ctx: Context,
-    mappings: TranslationMappings,
-    treatment: (input: string, ctx: Context) => string = (input) => input
-  ): string {
+  input: string,
+  ctx: Context,
+  mappings: TranslationMappings,
+  treatment: (input: string, ctx: Context) => string = (input) => input
+): string {
   // REPLACE!!!!1
   for (const mapping of mappings) {
     input = input.replace(mapping[0], mapping[1])

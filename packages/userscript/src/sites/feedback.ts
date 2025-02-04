@@ -14,7 +14,7 @@ export function feedback() {
   }
 
   getZendesk(
-    (button: HTMLElement) => {
+    (button) => {
       document.querySelector('.topNavbar nav')!.append(button)
     },
     ' – Minecraft Feedback',

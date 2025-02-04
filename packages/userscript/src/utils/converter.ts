@@ -417,7 +417,7 @@ export const converters = {
       let theList = ''
       let addingList = false
       for (let i = 0; i < ele.childNodes.length - 1; i++) {
-        let nodeName = ele.childNodes[i].nodeName
+        const nodeName = ele.childNodes[i].nodeName
         if (nodeName === 'OL' || nodeName === 'UL') {
           addingList = true
         }
@@ -618,7 +618,7 @@ export function makeUppercaseHeader(header: string) {
  */
 export async function getBugs(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
-    GM_xmlhttpRequest({
+    GM.xmlhttpRequest({
       method: 'GET',
       url: bugsCenter,
       fetch: true,
@@ -640,7 +640,7 @@ export async function getBugs(): Promise<ResolvedBugs> {
 
 export async function getBugsTranslators(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
-    GM_xmlhttpRequest({
+    GM.xmlhttpRequest({
       method: 'GET',
       url: bugsTranslatorsTable,
       fetch: true,
@@ -662,7 +662,7 @@ export async function getBugsTranslators(): Promise<ResolvedBugs> {
 
 export async function getTranslatorColor(): Promise<ResolvedBugs> {
   return new Promise((rs, rj) => {
-    GM_xmlhttpRequest({
+    GM.xmlhttpRequest({
       method: 'GET',
       url: translatorColorTable,
       fetch: true,

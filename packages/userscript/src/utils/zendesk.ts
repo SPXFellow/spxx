@@ -6,7 +6,7 @@ import config from '../config'
 import { spxxVersion } from './consts'
 
 export default function getZendesk(
-  controlDOM: Function,
+  controlDOM: (button: HTMLElement) => void,
   titleSlice: string,
   contentClass: string,
   versionType: VersionType | null
@@ -24,7 +24,7 @@ export default function getZendesk(
       contentClass,
       versionType
     )
-    GM_setClipboard(bbcode, { type: 'text', mimetype: 'text/plain' })
+    GM.setClipboard(bbcode, { type: 'text', mimetype: 'text/plain' })
     button.innerText = 'Copied BBCode!'
     setTimeout(() => (button.innerText = 'Copy BBCode'), 5_000)
   }
@@ -89,7 +89,7 @@ async function getZendeskContent(
 
 export async function getZendeskDate(url: string) {
   const req = new Promise((rs, rj) => {
-    GM_xmlhttpRequest({
+    GM.xmlHttpRequest({
       method: 'GET',
       url:
         '/api/v2/help_center/en-us/articles/' +
@@ -109,7 +109,7 @@ export async function getZendeskDate(url: string) {
       ontimeout: () => rj(new Error('Time out')),
     })
   })
-  let res: any
+  let res: Date
   await req.then((value) => {
     const rsp = JSON.parse(value as string)
     res = new Date(rsp.article.created_at)

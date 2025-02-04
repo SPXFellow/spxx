@@ -14,7 +14,7 @@ switch (location.host) {
   */
   case 'feedback.minecraft.net':
     feedback()
-  break
+    break
   case 'help.minecraft.net':
     help()
 }

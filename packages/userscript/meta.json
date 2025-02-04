@@ -23,13 +23,13 @@
     "https://help.minecraft.net/hc/en-us/articles/*"
   ],
   "require": [
-    "https://fastly.jsdelivr.net/gh/sizzlemctwizzle/GM_config@2207c5c1322ebb56e401f03c2e581719f909762a/gm_config.js"
+    "https://fastly.jsdelivr.net/gh/sizzlemctwizzle/GM_config@2207c5c1322ebb56e401f03c2e581719f909762a/GM_config.js"
   ],
   "grant": [
-    "GM_setClipboard",
-    "GM_xmlhttpRequest",
-    "GM_getValue",
-    "GM_setValue",
-    "GM_registerMenuCommand"
+    "GM.setClipboard",
+    "GM.xmlhttpRequest",
+    "GM.getValue",
+    "GM.setValue",
+    "GM.registerMenuCommand"
   ]
 }

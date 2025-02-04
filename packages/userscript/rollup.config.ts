@@ -24,8 +24,8 @@ export default defineConfig({
     metablock({
       file: './meta.json',
       override: {
-        version: pkg.version
-      }
+        version: pkg.version,
+      },
     }),
     nodeResolve(),
     jsonPlugin(),
