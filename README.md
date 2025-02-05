@@ -4,14 +4,14 @@
 ![GitHub Top Language](https://img.shields.io/github/languages/top/SPGoding/spx.svg)
 ![License](https://img.shields.io/github/license/SPGoding/spx.svg)
 
-The new and rewritten version of [spx](https://github.com/SPGoding/spx), the ultimate MCBBS newslord utility.
+The new and rewritten version of [spx](https://github.com/SPGoding/spx), the ultimate MCZWLT newslord utility.
 
 ## Components
 
 ### SPXX User Script™
 
 Adds a "Copy Markdown" button to Minecraft.net, feedback.minecraft.net and help.minecraft.net articles and Tweets,
-which sets the [Markdown][bbcode] representation of this blog article to your clipboard.
+which sets the [Markdown][markdown] representation of this blog article to your clipboard.
 
 You can use browser extensions like [Tampermonkey][tampermonkey] to install this script from URL: `https://cdn.jsdelivr.net/npm/@spxx/userscript/dist/bundle.user.js`
 
@@ -36,7 +36,7 @@ Development environment: [Node.js LTS][node] and [Yarn][yarn]
 - `yarn run start` to start the compiled SPXX Web Dashboard™.
 - `./out/user_script.js` is the compiled SPXX User Script™.
 
-[bbcode]: https://en.wikipedia.org/wiki/Markdown
+[markdown]: https://en.wikipedia.org/wiki/Markdown
 [bugs]: https://spx.spgoding.com/bugs
 [node]: https://nodejs.org/
 [yarn]: https://yarnpkg.com/
