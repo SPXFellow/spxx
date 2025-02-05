@@ -1,6 +1,6 @@
 {
   "name": "@spxx/userscript",
-  "version": "2.4.15",
+  "version": "3.0.0",
   "description": "The userscript of spxx, the ultimate MCBBS newslord utility.",
   "main": "dist/bundle.user.js",
   "type": "module",
@@ -8,7 +8,7 @@
   "license": "CC0-1.0",
   "scripts": {
     "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
-    "prepack": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with",
+    "prepack": "pnpm build",
     "watch": "rollup -w --config rollup.config.ts --configPlugin @rollup/plugin-typescript --configImportAttributesKey with"
   },
   "devDependencies": {
