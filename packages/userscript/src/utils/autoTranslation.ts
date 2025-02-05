@@ -44,6 +44,7 @@ const translators = {
       [/Known Issues/gi, '已知问题'],
       [/Technical Updates/gi, '技术性更新'],
       [/Character Creator/gi, '角色创建器'],
+      [/Text Components/gi, '文本组件'],
       [/Components/gi, '组件'],
       [/General/gi, '通用'],
       [/Technical Experimental/gi, '实验性技术性更新'],

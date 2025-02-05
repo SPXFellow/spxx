@@ -1,5 +1,5 @@
 import { VersionType } from '../utils/articleTemplate'
-import getZendesk from '../utils/zendesk'
+import getZendesk from './zendesk'
 
 export function feedback() {
   let versionType = VersionType.Normal

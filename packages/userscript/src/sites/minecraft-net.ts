@@ -1,9 +1,9 @@
 import config from '../config'
 import { ColorMap, Context, ResolvedBugs, Translator } from '../types'
 import { VersionType, getHeader, getFooter } from '../utils/articleTemplate'
+import { spxxVersion } from '../utils/consts'
 import {
   getBugs,
-  resolveUrl,
   converters,
   getBugsTranslators,
   getTranslatorColor,
@@ -67,19 +67,54 @@ async function convertMCArticleToMarkdown(
   }
 
   const header = getHeader(articleType, versionType)
-  const heroImage = getHeroImage(html, articleType)
+  const title = html.title.split(' | ').slice(0, -1).join(' | ')
+
   const content = await getContent(html, {
     bugs,
     bugsTranslators,
     translatorColor,
-    title: html.title.split(' | ').slice(0, -1).join(' | '),
+    title,
     date: null,
     translator,
     url: articleUrl,
   })
-  const footer = getFooter(articleType, versionType)
 
-  const ans = `${header}${heroImage}${content}[/indent][/indent]${footer}`
+  // Get the server URL if it exists.
+  const serverUrl = html.querySelector(
+    `a[href^="https://piston-data.mojang.com/"][href$="/server.jar"]`
+  )
+
+  const footer = getFooter(
+    articleType,
+    versionType,
+    serverUrl !== null ? serverUrl.getAttribute('href')! : undefined
+  )
+
+  const footerInfo = {
+    year: 'XXXX',
+    month: 'XX',
+    day: 'XX',
+    author: 'XXXXXX',
+  }
+  const ldJsonEle = html.querySelector('script[type="application/ld+json"]')
+  if (ldJsonEle) {
+    const ldJson = JSON.parse(ldJsonEle.textContent!)
+    if (ldJson.datePublished) {
+      const date = new Date(ldJson.datePublished)
+      footerInfo.year = date.getFullYear().toString()
+      footerInfo.month = (date.getMonth() + 1).toString()
+      footerInfo.day = date.getDate().toString()
+    }
+    if (ldJson.author?.name) {
+      footerInfo.author = ldJson.author.name
+    }
+  }
+
+  const ans = `${header}${content}\n
+**【${translator} 译自[官网 ${footerInfo.year} 年 ${footerInfo.month} 月 ${footerInfo.day} 日发布的 ${
+    title
+  }](${articleUrl})】**
+【本文排版借助了：SPXX Userscript v${spxxVersion}】${footer}`
 
   return ans
 }
@@ -116,28 +151,6 @@ function getVersionType(url: string): VersionType {
 }
 
 /**
- * Get the hero image (head image) of an article as the form of a Markdown string.
- * @param html An HTML Document.
- */
-function getHeroImage(html: Document, articleType: string | undefined) {
-  const category = articleType
-    ? `\n[backcolor=Black][color=White][font="Noto Sans",sans-serif][b]${articleType}[/b][/font][/color][/backcolor][/align]`
-    : ''
-  const img = html.getElementsByClassName('article-head__image')[0] as
-    | HTMLImageElement
-    | undefined
-  if (!img) {
-    return `[postbg]bg3.png[/postbg]\n\n[align=center]${category}[indent][indent]\n`
-  }
-  const src = img.src
-  const ans = `[postbg]bg3.png[/postbg][align=center][img=1200,513]${resolveUrl(
-    src
-  )}[/img]\n${category}[indent][indent]\n`
-
-  return ans
-}
-
-/**
  * Get the content of an article as the form of a Markdown string.
  * @param html An HTML Document.
  */
@@ -150,41 +163,13 @@ async function getContent(html: Document, ctx: Context) {
   }
   console.log(ans)
 
-  // Get the server URL if it exists.
-  const serverUrls = ans.match(
-    /(https:\/\/piston-data.mojang.com\/.+\/server.jar)/
-  )
-  let serverUrl = ''
-  if (serverUrls) {
-    serverUrl = serverUrls[0]
-  }
-
   // Remove 'GET THE SNAPSHOT/PRE-RELEASE/RELEASE-CANDIDATE/RELEASE' for releasing
   const index = ans
     .toLowerCase()
-    .search(
-      /\[size=\d]\[b\]\[color=silver\](\[b\])?get the (pre-release|release|release candidate|snapshot)(\[\/b\])?\[\/color\]\[\/b\]\[\/size\]/
-    )
+    .search(/#+ get the (pre-release|release|release candidate|snapshot)/)
   if (index !== -1) {
+    console.log(index)
     ans = ans.slice(0, index)
-
-    // Add back 【SPXX】
-    const attribution = await converters.recursive(
-      document.querySelector('.attribution')!,
-      ctx
-    )
-    ans = `${ans}${attribution}`
-  }
-  // Add spaces between texts and '[x'.
-  ans = ans.replace(/([a-zA-Z0-9\-._])(\[[A-Za-z])/g, '$1 $2')
-  // Add spaces between '[/x]' and texts.
-  ans = ans.replace(/(\[\/[^\]]+?\])([a-zA-Z0-9\-._])/g, '$1 $2')
-  // Append the server URL if it exists.
-  if (serverUrl) {
-    ans += `\n[align=center][font=-apple-system, BlinkMacSystemFont,Segoe UI, Roboto, Helvetica, Arial, sans-serif][table=85%]
-[tr=#E3C99E][td][float=left][img=32,32]https://attachment.mcbbs.net/data/myattachment/common/39/common_137_icon.png[/img][/float][size=24px][b][color=#645944] 实用链接[/color][/b][/size][/td][/tr]
-[tr=#FDF6E5][td][size=16px][list]
-[*][url=${serverUrl}][color=Sienna]官方服务端 jar 下载地址[/color][/url]`
   }
 
   return ans

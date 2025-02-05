@@ -150,7 +150,7 @@ export const converters = {
     return ans
   },
   code: async (ele: HTMLElement, ctx: Context) => {
-    const prefix = ctx.multiLineCode ? '```' : '`'
+    const prefix = ctx.multiLineCode ? '```\n' : '`'
     const suffix = ctx.multiLineCode ? '```' : '`'
 
     const ans = `${prefix}${await converters.recursive(ele, {
@@ -231,6 +231,8 @@ export const converters = {
       ele.classList.contains('attributed-quote')
     ) {
       ans = `\n> ${ans}\n`
+    } else if (ele.classList.contains('MC_articleHeroA_category')) {
+      ans = `\n###### ${ans}\n`
     } else if (
       ele.classList.contains('MC_imageGridA') ||
       ele.classList.contains('MC_socialShareA')
@@ -402,7 +404,11 @@ export const converters = {
     return ans
   },
   ol: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `${await converters.recursive(ele, ctx)}\n`
+    let prefix = ''
+    if (ele.parentElement?.nodeName === 'LI') {
+      prefix = '\n'
+    }
+    const ans = `${prefix}${await converters.recursive(ele, ctx)}\n`
 
     return ans
   },
@@ -498,7 +504,11 @@ export const converters = {
     return ans
   },
   ul: async (ele: HTMLElement, ctx: Context) => {
-    const ans = `${await converters.recursive(ele, ctx)}\n`
+    let prefix = ''
+    if (ele.parentElement?.nodeName === 'LI') {
+      prefix = '\n'
+    }
+    const ans = `${prefix}${await converters.recursive(ele, ctx)}\n`
 
     return ans
   },

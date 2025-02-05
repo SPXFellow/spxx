@@ -1,9 +1,9 @@
 import { VersionType, getHeader, getFooter } from '../utils/articleTemplate'
 import { converters } from '../utils/converter'
 import { Context } from '../types'
-import translateMachinely from '../utils/autoTranslation'
+import translate from '../utils/autoTranslation'
 import config from '../config'
-import { spxxVersion } from './consts'
+import { spxxVersion } from '../utils/consts'
 
 export default function getZendesk(
   controlDOM: (button: HTMLElement) => void,
@@ -53,18 +53,14 @@ async function convertZendeskArticleToMarkdown(
   const header = versionType ? getHeader('news', versionType) : ''
   const footer = versionType ? getFooter('news', versionType) : ''
 
-  const ans = `[postbg]bg3.png[/postbg]${header}[align=center][size=6][b][color=Silver]${title}[/color][/b][/size]
-${translateMachinely(
-  `[size=6][b]${title}[/b][/size]`,
-  ctx,
-  'headings'
-)}[/align]\n\n[indent][indent]${content}\n
-[b]【${ctx.translator} 译自[url=${ctx.url}][color=#388d40][u]${
-    ctx.url.match(/https:\/\/(.*?)\//)[1]
+  const ans = `${header}
+# ${translate(`${title}`, ctx, 'headings')}\n\n${content}\n
+**【${ctx.translator} 译自[${
+    ctx.url.match(/https:\/\/(.*?)\//)?.[1] ?? 'unknown'
   } ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
-  }[/u][/color][/url]】[/b]
-【本文排版借助了：[url=https://www.mcbbs.net/thread-1266030-1-1.html][color=#388d40][u]SPXX[/u][/color][/url] Userscript v${spxxVersion}】[/indent][/indent]\n\n${footer}`
+  }](${ctx.url})】**
+【本文排版借助了：SPXX Userscript v${spxxVersion}】${footer}`
 
   return ans
 }

@@ -1,4 +1,4 @@
-import getZendesk from '../utils/zendesk'
+import getZendesk from './zendesk'
 
 export function help() {
   getZendesk(
