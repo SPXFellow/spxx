@@ -110,11 +110,10 @@ async function convertMCArticleToMarkdown(
     }
   }
 
-  const ans = `${header}${content}\n
-**【${translator} 译自[官网 ${footerInfo.year} 年 ${footerInfo.month} 月 ${footerInfo.day} 日发布的 ${
-    title
-  }](${articleUrl})】**
-【本文排版借助了：SPXX Userscript v${spxxVersion}】${footer}`
+  const ans = `${header}${content}---
+
+**【${translator} 译自[官网 ${footerInfo.year} 年 ${footerInfo.month} 月 ${footerInfo.day} 日发布的 ${title}](${articleUrl})】**
+【本文排版借助了：[SPXX Userscript v${spxxVersion}](https://www.mczwlt.net/resource/ilm1b1xr)】${footer}`
 
   return ans
 }

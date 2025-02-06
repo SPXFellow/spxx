@@ -390,6 +390,11 @@ export const converters = {
       parent = parent.parentElement
     }
 
+    let suffix = '\n'
+    if (ele.querySelector('ul')) {
+      suffix = ''
+    }
+
     if (isBlocklisted(ele.textContent!)) {
       return ''
     } else {
@@ -398,7 +403,7 @@ export const converters = {
         ele.parentElement!.nodeName === 'UL'
           ? '- '
           : `${Array.from(ele.parentElement!.children).indexOf(ele) + 1}. `
-      }${translateBugs(inner, ctx)}\n`
+      }${translateBugs(inner, ctx)}${suffix}`
     }
 
     return ans
@@ -505,10 +510,13 @@ export const converters = {
   },
   ul: async (ele: HTMLElement, ctx: Context) => {
     let prefix = ''
+    let suffix = '\n'
+
     if (ele.parentElement?.nodeName === 'LI') {
       prefix = '\n'
+      suffix = ''
     }
-    const ans = `${prefix}${await converters.recursive(ele, ctx)}\n`
+    const ans = `${prefix}${await converters.recursive(ele, ctx)}${suffix}`
 
     return ans
   },

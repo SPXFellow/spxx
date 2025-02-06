@@ -60,7 +60,7 @@ async function convertZendeskArticleToMarkdown(
   } ${posted.year} 年 ${posted.month} 月 ${posted.day} 日发布的 ${
     ctx.title
   }](${ctx.url})】**
-【本文排版借助了：SPXX Userscript v${spxxVersion}】${footer}`
+【本文排版借助了：[SPXX Userscript v${spxxVersion}](https://www.mczwlt.net/resource/ilm1b1xr)】${footer}`
 
   return ans
 }
