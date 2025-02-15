@@ -35,6 +35,8 @@ export const converters = {
         return converters.dl(node as HTMLElement, ctx)
       case 'DT':
         return converters.dt()
+      case 'FIGURE':
+        return converters.figure(node as HTMLElement, ctx)
       case 'EM':
         return converters.em(node as HTMLElement, ctx)
       case 'H1':
@@ -299,6 +301,10 @@ export const converters = {
 
     return ans
   },
+  figure: async (ele: HTMLElement, ctx: Context) => {
+    const ans = await converters.recursive(ele, ctx)
+    return ans
+  },
   h1: async (ele: HTMLElement, ctx: Context) => {
     const prefix = '# '
     const suffix = ''
@@ -459,7 +465,8 @@ export const converters = {
   span: async (ele: HTMLElement, ctx: Context) => {
     const ans = await converters.recursive(ele, ctx)
 
-    if (ele.classList.contains('bedrock-server')) {
+    if (ele.classList.contains('bedrock-server')||
+       ele.classList.contains('MC_Effect_TextHighlightA') {
       // Inline code.
       const prefix = '`'
       const suffix = '`'
